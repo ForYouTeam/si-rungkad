@@ -1,10 +1,10 @@
-### APLIKASI SISTEM INFORMASI GOEGRAFIS DAERAH TIDAK LAYAK HUNI
+### APLIKASI SISTEM INFORMASI PENDAFTARAN PASIEN RUMKIT UNDATA
 Aplikasi ini berdasarkan penelitian
 
 #### INSTALASI
 Copy dan jalankan code dibawah ini
 ```bash
-git remote add origin git@github.com:ForYouTeam/sidati-app.git
+git remote add origin git@github.com:ForYouTeam/si-rungkad.git
 git branch -M main
 git push -u origin main
 ```

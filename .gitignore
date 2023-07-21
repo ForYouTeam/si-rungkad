@@ -18,4 +18,5 @@ yarn-error.log
 /.vscode
 *.lock
 my-db
-/storage/*.key
+storage/*.key
+/mysql-data
