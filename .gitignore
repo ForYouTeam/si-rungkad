@@ -19,3 +19,5 @@ yarn-error.log
 *.lock
 my-db
 storage/*.key
+docker-compose.yml
+/mysql-data
