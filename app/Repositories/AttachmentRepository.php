@@ -2,22 +2,22 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\PolyInterfaces;
-use App\Models\LegendModel;
+use App\Interfaces\AttachmentInterfaces;
+use App\Models\attachment;
 use App\Models\poly;
 
-class PolyRepository implements PolyInterfaces
+class AttachmentRepository implements AttachmentInterfaces
 { 
-  private poly $polyModel;
-  public function __construct(poly $polyModel)
+  private attachment $attachmentModel;
+  public function __construct(attachment $attachmentModel)
   {
-    $this->polyModel = $polyModel;
+    $this->attachmentModel = $attachmentModel;
   }
 
   public function getAllPayload(array $params)
   {
     try {
-      $payloadList = $this->polyModel->all();
+      $payloadList = $this->attachmentModel->all();
       $responseJson = array(
         'code'    => 200,
         'message' => 'success get data',
@@ -31,7 +31,7 @@ class PolyRepository implements PolyInterfaces
         'code'    => 500,
         'message' => $th->getMessage(),
         'meta'    => [
-          'function' => 'PolyInterfaces - getAllPayload'
+          'function' => 'AttachmentRepository - getAllPayload'
         ]
       );
     }
@@ -42,7 +42,7 @@ class PolyRepository implements PolyInterfaces
   {
     try {
 
-      $whereData = $this->polyModel->whereId($idPayload)->first();
+      $whereData = $this->attachmentModel->whereId($idPayload)->first();
 
       if ($whereData) {
         $responseJson = array(
@@ -62,7 +62,7 @@ class PolyRepository implements PolyInterfaces
         'code'    => $th->getCode(),
         'message' => $th->getMessage(),
         'meta'    => [
-          'function' => 'PolyInterfaces - getPayloadById'
+          'function' => 'AttachmentRepository - getPayloadById'
         ]
       );
     }
@@ -80,7 +80,7 @@ class PolyRepository implements PolyInterfaces
             return $findData;
           }
   
-          $whereData = $this->polyModel->whereId($idPayload);
+          $whereData = $this->attachmentModel->whereId($idPayload);
           $responseJson = array(
             'code'    => 200,
             'message' => 'success update data',
@@ -90,7 +90,7 @@ class PolyRepository implements PolyInterfaces
           $responseJson = array(
             'code'    => 200,
             'message' => 'success create data',
-            'data'    => $this->polyModel->create($payload)
+            'data'    => $this->attachmentModel->create($payload)
           );
         }
         
@@ -99,7 +99,7 @@ class PolyRepository implements PolyInterfaces
           'code'    => $th->getCode(),
           'message' => $th->getMessage(),
           'meta'    => [
-            'function' => 'PolyInterfaces - upsertPayload'
+            'function' => 'AttachmentRepository - upsertPayload'
           ]
         );
       }
@@ -115,7 +115,7 @@ class PolyRepository implements PolyInterfaces
         return $findData;
       }
 
-      $whereData = $this->polyModel->whereId($idPayload);
+      $whereData = $this->attachmentModel->whereId($idPayload);
       $responseJson = array(
         'code'    => 200,
         'message' => 'success delete data',
@@ -126,7 +126,7 @@ class PolyRepository implements PolyInterfaces
         'code'    => $th->getCode(),
         'message' => $th->getMessage(),
         'meta'    => [
-          'function' => 'PolyInterfaces - deletePayload'
+          'function' => 'AttachmentRepository - deletePayload'
         ]
       );
     }
