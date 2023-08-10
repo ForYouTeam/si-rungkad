@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BackOffice\AttachmentController;
+use App\Http\Controllers\BackOffice\DoctorProfileController;
 use App\Http\Controllers\BackOffice\PolyController;
 use App\Http\Controllers\BackOffice\ProfileController;
 use App\Http\Controllers\BackOffice\UserController;
@@ -42,6 +43,13 @@ Route::prefix('v1/user')->controller(UserController::class)->group(function() {
 });
 
 Route::prefix('v1/profile')->controller(ProfileController::class)->group(function() {
+  Route::get    ('/'     , 'getAllData'  );
+  Route::get    ('/{id}' , 'getDataById' );
+  Route::post   ('/'     , 'upsertData'  );
+  Route::delete ('/{id}' , 'deleteData'  );
+});
+
+Route::prefix('v1/doctorprofile')->controller(DoctorProfileController::class)->group(function() {
   Route::get    ('/'     , 'getAllData'  );
   Route::get    ('/{id}' , 'getDataById' );
   Route::post   ('/'     , 'upsertData'  );
