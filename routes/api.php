@@ -4,6 +4,7 @@ use App\Http\Controllers\BackOffice\AttachmentController;
 use App\Http\Controllers\BackOffice\DoctorProfileController;
 use App\Http\Controllers\BackOffice\PolyController;
 use App\Http\Controllers\BackOffice\ProfileController;
+use App\Http\Controllers\BackOffice\ScheduleController;
 use App\Http\Controllers\BackOffice\UserController;
 use App\Interfaces\PolyInterfaces;
 use Illuminate\Http\Request;
@@ -50,6 +51,13 @@ Route::prefix('v1/profile')->controller(ProfileController::class)->group(functio
 });
 
 Route::prefix('v1/doctorprofile')->controller(DoctorProfileController::class)->group(function() {
+  Route::get    ('/'     , 'getAllData'  );
+  Route::get    ('/{id}' , 'getDataById' );
+  Route::post   ('/'     , 'upsertData'  );
+  Route::delete ('/{id}' , 'deleteData'  );
+});
+
+Route::prefix('v1/schedule')->controller(ScheduleController::class)->group(function() {
   Route::get    ('/'     , 'getAllData'  );
   Route::get    ('/{id}' , 'getDataById' );
   Route::post   ('/'     , 'upsertData'  );
