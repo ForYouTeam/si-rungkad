@@ -10,9 +10,30 @@ class schedule extends Model
     use HasFactory;
     protected $table = 'schedule';
     protected $fillable = [
-        'id_poly',
-        'id_doctor',
+        'poly_id',
+        'doctor_id',
         'tgl',
         'jam_praktek'
     ];
+
+    public function poly(){
+        return $this->belongsTo(poly::class, 'poly_id');
+    }
+
+    public function doctor(){
+        return $this->belongsTo(doctor_profile::class, 'doctor_id');
+    }
+
+    public function scopejoinList($query)
+    {
+        return $query ->leftJoin('poly as model_a', 'schedule.poly_id', '=', 'model_a.id')
+        ->leftJoin('doctor as model_b', 'schedule.doctor_id', '=', 'model_b.id')
+        ->select(
+            'schedule.id', 
+            'model_a.nama',
+            'model_b.nama',
+            'schedule.tgl',
+            'schedule.jam_praktek',
+        );   
+    }
 }
