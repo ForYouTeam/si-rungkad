@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Interfaces\UserInterfaces;
 use App\Models\attachment;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserInterfaces
 { 
@@ -75,11 +77,11 @@ class UserRepository implements UserInterfaces
       try {
         if ($idPayload) {
           $findData = $this->getPayloadById($idPayload);
-  
+
           if ($findData['code'] == 404) {
             return $findData;
           }
-  
+
           $whereData = $this->userModel->whereId($idPayload);
           $responseJson = array(
             'code'    => 200,
@@ -93,7 +95,7 @@ class UserRepository implements UserInterfaces
             'data'    => $this->userModel->create($payload)
           );
         }
-        
+
       } catch (\Throwable $th) {
         $responseJson = array(
           'code'    => $th->getCode(),
@@ -103,7 +105,7 @@ class UserRepository implements UserInterfaces
           ]
         );
       }
-  
+
       return $responseJson;
   }
 

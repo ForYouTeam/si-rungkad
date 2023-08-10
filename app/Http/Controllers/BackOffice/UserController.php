@@ -8,6 +8,7 @@ use App\Interfaces\UserInterfaces;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -37,10 +38,11 @@ class UserController extends Controller
         $idPayload = $payload->id | null;
 
         $date = Carbon::now();
+        $hash = Hash::make($payload['password']);
         $payload = array(
             'nama'       => $payload->nama ,
             'username'   => $payload->username,
-            'password'   => $payload->password,
+            'password'   => $hash,
             'scope'      => $payload->scope,
             'created_at' => $date,
         );
