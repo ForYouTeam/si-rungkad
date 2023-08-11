@@ -8,6 +8,7 @@ use App\Http\Controllers\BackOffice\ProfileController;
 use App\Http\Controllers\BackOffice\RegistationController;
 use App\Http\Controllers\BackOffice\ScheduleController;
 use App\Http\Controllers\BackOffice\UserController;
+use App\Http\Controllers\BackOffice\VisitHistoryController;
 use App\Interfaces\PolyInterfaces;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -74,6 +75,13 @@ Route::prefix('v1/medicalcard')->controller(MedicalCardController::class)->group
 });
 
 Route::prefix('v1/registation')->controller(RegistationController::class)->group(function() {
+  Route::get    ('/'     , 'getAllData'  );
+  Route::get    ('/{id}' , 'getDataById' );
+  Route::post   ('/'     , 'upsertData'  );
+  Route::delete ('/{id}' , 'deleteData'  );
+});
+
+Route::prefix('v1/visithistory')->controller(VisitHistoryController::class)->group(function() {
   Route::get    ('/'     , 'getAllData'  );
   Route::get    ('/{id}' , 'getDataById' );
   Route::post   ('/'     , 'upsertData'  );

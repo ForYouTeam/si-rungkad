@@ -8,12 +8,34 @@ use Illuminate\Database\Eloquent\Model;
 class visit_history extends Model
 {
     use HasFactory;
-    protected $table = 'visit_history';
+    protected $table = 'visithistory';
     protected $fillable = [
-        'id_user',
-        'id_registation',
+        'profile_id',
+        'registation_id',
         'tgl_kunjungan',
         'waktu_kunjungan',
         'keterangan'
     ];
+
+    public function profile(){
+        return $this->belongsTo(profile::class, 'profile_id');
+    }
+
+    public function registation(){
+        return $this->belongsTo(registation::class, 'registation_id');
+    }
+
+    public function scopejoinList($query)
+    {
+        return $query ->leftJoin('profile as model_a', 'visithistory.profile_id', '=', 'model_a.id')
+        ->leftJoin('registation as model_b', 'visithistory.registation_id', '=', 'model_b.id')
+        ->select(
+            'visithistory.id', 
+            'model_a.nama',
+            'model_b.no_registrasi',
+            'visithistory.tgl_kunjungan',
+            'visithistory.waktu_kunjungan',
+            'visithistory.keterangan',
+        );   
+    }
 }
