@@ -5,6 +5,7 @@ use App\Http\Controllers\BackOffice\DoctorProfileController;
 use App\Http\Controllers\BackOffice\MedicalCardController;
 use App\Http\Controllers\BackOffice\PolyController;
 use App\Http\Controllers\BackOffice\ProfileController;
+use App\Http\Controllers\BackOffice\RegistationController;
 use App\Http\Controllers\BackOffice\ScheduleController;
 use App\Http\Controllers\BackOffice\UserController;
 use App\Interfaces\PolyInterfaces;
@@ -66,6 +67,13 @@ Route::prefix('v1/schedule')->controller(ScheduleController::class)->group(funct
 });
 
 Route::prefix('v1/medicalcard')->controller(MedicalCardController::class)->group(function() {
+  Route::get    ('/'     , 'getAllData'  );
+  Route::get    ('/{id}' , 'getDataById' );
+  Route::post   ('/'     , 'upsertData'  );
+  Route::delete ('/{id}' , 'deleteData'  );
+});
+
+Route::prefix('v1/registation')->controller(RegistationController::class)->group(function() {
   Route::get    ('/'     , 'getAllData'  );
   Route::get    ('/{id}' , 'getDataById' );
   Route::post   ('/'     , 'upsertData'  );
