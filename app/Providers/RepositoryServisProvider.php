@@ -7,6 +7,7 @@ use App\Interfaces\DoctorProfileInterfaces;
 use App\Interfaces\MedicalCardInterfaces;
 use App\Interfaces\PolyInterfaces;
 use App\Interfaces\ProfileInterfaces;
+use App\Interfaces\RegistationInterfaces;
 use App\Interfaces\ScheduleInterfaces;
 use App\Interfaces\UserInterfaces;
 use App\Repositories\AttachmentRepository;
@@ -14,6 +15,7 @@ use App\Repositories\DoctorProfileRepository;
 use App\Repositories\MedicalCardRepository;
 use App\Repositories\PolyRepository;
 use App\Repositories\ProfileRepository;
+use App\Repositories\RegistationRepository;
 use App\Repositories\ScheduleRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -34,6 +36,7 @@ class RepositoryServisProvider extends ServiceProvider
         $this->app->bind(DoctorProfileInterfaces::class, DoctorProfileRepository::class);
         $this->app->bind(ScheduleInterfaces::class, ScheduleRepository::class);
         $this->app->bind(MedicalCardInterfaces::class, MedicalCardRepository::class);
+        $this->app->bind(RegistationInterfaces::class, RegistationRepository::class);
     }
 
     /**
