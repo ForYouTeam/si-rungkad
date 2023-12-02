@@ -19,6 +19,12 @@ class UserController extends Controller
         $this->userRepo = $userRepo;
     }
 
+    public function getView()
+    {
+        $data = $this->userRepo->getAllPayload([]);
+        return view('pages.User')->with('data', $data['data']);
+    }
+
     public function getAllData(): JsonResponse
     {
         $response = $this->userRepo->getAllPayload([]);

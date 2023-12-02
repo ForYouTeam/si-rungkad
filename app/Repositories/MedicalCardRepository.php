@@ -16,7 +16,7 @@ class MedicalCardRepository implements MedicalCardInterfaces
     public function getAllPayload(array $params)
     {
       try {
-        $payloadList = $this->medicalcardModel->all();
+        $payloadList = $this->medicalcardModel->joinList()->get();
         $responseJson = array(
           'code'    => 200,
           'message' => 'success get data',

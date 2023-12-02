@@ -27,11 +27,11 @@ class schedule extends Model
     public function scopejoinList($query)
     {
         return $query ->leftJoin('poly as model_a', 'schedule.poly_id', '=', 'model_a.id')
-        ->leftJoin('doctor as model_b', 'schedule.doctor_id', '=', 'model_b.id')
+        ->leftJoin('doctorprofile as model_b', 'schedule.doctor_id', '=', 'model_b.id')
         ->select(
             'schedule.id', 
-            'model_a.nama',
-            'model_b.nama',
+            'model_a.nama as nama_poly',
+            'model_b.nama as nama_doctor',
             'schedule.tgl',
             'schedule.jam_praktek',
         );   

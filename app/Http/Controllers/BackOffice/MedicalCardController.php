@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BackOffice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MedicalCardRequest;
 use App\Interfaces\MedicalCardInterfaces;
+use App\Interfaces\ProfileInterfaces;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,10 +13,20 @@ use Illuminate\Http\Request;
 class MedicalCardController extends Controller
 {
     private MedicalCardInterfaces $medicalcardRepo;
+    private ProfileInterfaces $profileRepo;
 
-    public function __construct(MedicalCardInterfaces $medicalcardRepo)
+
+    public function __construct(MedicalCardInterfaces $medicalcardRepo, ProfileInterfaces $profileRepo)
     {
         $this->medicalcardRepo = $medicalcardRepo;
+        $this->profileRepo = $profileRepo;
+    }
+
+    public function getView()
+    {
+        $data = $this->medicalcardRepo->getAllPayload([]);
+        $profileid = $this->profileRepo->getAllPayload([]);
+        return view('pages.MedicalCard')->with(['data'=> $data['data'], 'profileid' => $profileid['data']]);;
     }
 
     public function getAllData(): JsonResponse

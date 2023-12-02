@@ -11,23 +11,29 @@ use Illuminate\Http\Request;
 
 class DoctorProfileController extends Controller
 {
-    private DoctorProfileInterfaces $profileRepo;
+    private DoctorProfileInterfaces $doctorprofileRepo;
 
-    public function __construct(DoctorProfileInterfaces $profileRepo)
+    public function __construct(DoctorProfileInterfaces $doctorprofileRepo)
     {
-        $this->profileRepo = $profileRepo;
+        $this->doctorprofileRepo = $doctorprofileRepo;
+    }
+
+    public function getView()
+    {
+        $data = $this->doctorprofileRepo->getAllPayload([]);
+        return view('pages.DoctorProfile')->with('data', $data['data']);
     }
 
     public function getAllData(): JsonResponse
     {
-        $response = $this->profileRepo->getAllPayload([]);
+        $response = $this->doctorprofileRepo->getAllPayload([]);
 
         return response()->json($response, $response['code']);
     }
 
     public function getDataById($idPayload)
     {
-        $response = $this->profileRepo->getPayloadById($idPayload);
+        $response = $this->doctorprofileRepo->getPayloadById($idPayload);
 
         return response()->json($response, $response['code']);
     }
@@ -55,14 +61,14 @@ class DoctorProfileController extends Controller
             $payload['updated_at'] = $date;
         }
 
-        $response = $this->profileRepo->upsertPayload($idPayload, $payload);
+        $response = $this->doctorprofileRepo->upsertPayload($idPayload, $payload);
 
         return response()->json($response, $response['code']);
     }
 
     public function deleteData($idPayload)
     {
-        $response = $this->profileRepo->deletePayload($idPayload);
+        $response = $this->doctorprofileRepo->deletePayload($idPayload);
 
         return response()->json($response, $response['code']);
     }

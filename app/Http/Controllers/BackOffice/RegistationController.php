@@ -4,6 +4,9 @@ namespace App\Http\Controllers\BackOffice;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistationRequest;
+use App\Interfaces\AttachmentInterfaces;
+use App\Interfaces\MedicalCardInterfaces;
+use App\Interfaces\PolyInterfaces;
 use App\Interfaces\RegistationInterfaces;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -12,10 +15,22 @@ use Illuminate\Http\Request;
 class RegistationController extends Controller
 {
     private RegistationInterfaces $registationRepo;
+    private PolyInterfaces $polyRepo;
+    private AttachmentInterfaces $attachmentRepo;
 
-    public function __construct(RegistationInterfaces $registationRepo)
+    public function __construct(RegistationInterfaces $registationRepo,  PolyInterfaces $polyRepo, AttachmentInterfaces $attachmentRepo)
     {
         $this->registationRepo = $registationRepo;
+        $this->polyRepo = $polyRepo;
+        $this->attachmentRepo = $attachmentRepo;
+    }
+
+    public function getView()
+    {
+        $data = $this->registationRepo->getAllPayload([]);
+        $polyid = $this->polyRepo->getAllPayload([]);
+        $lampiran = $this->attachmentRepo->getAllPayload([]);
+        return view('pages.Registation')->with(['data' => $data['data'], 'polyid' => $polyid['data'], 'lampiran' => $lampiran['data']]);
     }
 
     public function getAllData(): JsonResponse

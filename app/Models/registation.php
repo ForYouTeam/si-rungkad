@@ -18,18 +18,6 @@ class registation extends Model
         'qr_code'
     ];
 
-    public function medicalcard(){
-        return $this->belongsTo(medical_card::class,'medicalcard_id');
-    }
-
-    public function poly(){
-        return $this->belongsTo(poly::class, 'poly_id');
-    }
-
-    public function attachment(){
-        return $this->belongsTo(attachment::class, 'attachment_id');
-    }
-
     public function scopejoinList($query)
     {
         return $query ->leftJoin('medicalcard as model_a', 'registation.medicalcard_id', '=', 'model_a.id')
@@ -38,11 +26,11 @@ class registation extends Model
         ->select(
             'registation.id',
             'registation.no_registrasi',
-            'model_a.no_rm',
-            'model_b.nama',
+            'model_a.no_rm as rekammedis',
+            'model_b.nama as nama_poly',
             'registation.tgl_registrasi',
-            'model_c.foto_ktp',
-            'model_c.foto_kartu_berobat',
+            'model_c.foto_ktp as ktp',
+            'model_c.foto_kartu_berobat as kb',
             'registation.qr_code',
         );   
     }

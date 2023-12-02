@@ -31,8 +31,8 @@ class visit_history extends Model
         ->leftJoin('registation as model_b', 'visithistory.registation_id', '=', 'model_b.id')
         ->select(
             'visithistory.id', 
-            'model_a.nama',
-            'model_b.no_registrasi',
+            'model_a.nama as nama_profile',
+            'model_b.no_registrasi as registrasi',
             'visithistory.tgl_kunjungan',
             'visithistory.waktu_kunjungan',
             'visithistory.keterangan',

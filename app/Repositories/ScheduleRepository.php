@@ -17,7 +17,7 @@ class ScheduleRepository implements ScheduleInterfaces
     public function getAllPayload(array $params)
     {
       try {
-        $payloadList = $this->scheduleModel->all();
+        $payloadList = $this->scheduleModel->joinList()->get();
         $responseJson = array(
           'code'    => 200,
           'message' => 'success get data',
