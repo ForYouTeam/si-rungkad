@@ -16,7 +16,7 @@ class VisitHistoryRepository implements VisitHistoryInterfaces
     public function getAllPayload(array $params)
     {
       try {
-        $payloadList = $this->visithistoryModel->all();
+        $payloadList = $this->visithistoryModel->joinList()->get();
         $responseJson = array(
           'code'    => 200,
           'message' => 'success get data',

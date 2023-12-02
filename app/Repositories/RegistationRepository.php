@@ -17,7 +17,7 @@ class RegistationRepository implements RegistationInterfaces
     public function getAllPayload(array $params)
     {
       try {
-        $payloadList = $this->registationModel->all();
+        $payloadList = $this->registationModel->joinList()->get();
         $responseJson = array(
           'code'    => 200,
           'message' => 'success get data',

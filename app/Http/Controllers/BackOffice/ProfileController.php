@@ -17,6 +17,12 @@ class ProfileController extends Controller
         $this->profileRepo = $profileRepo;
     }
 
+    public function getView()
+    {
+        $data = $this->profileRepo->getAllPayload([]);
+        return view('pages.Profile')->with('data', $data['data']);
+    }
+
     public function getAllData(): JsonResponse
     {
         $response = $this->profileRepo->getAllPayload([]);

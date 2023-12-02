@@ -18,6 +18,12 @@ class PolyController extends Controller
         $this->polyRepo = $polyRepo;
     }
 
+    public function getView()
+    {
+        $data = $this->polyRepo->getAllPayload([]);
+        return view('pages.Poly')->with('data', $data['data']);
+    }
+
     public function getAllData(): JsonResponse
     {
         $response = $this->polyRepo->getAllPayload([]);

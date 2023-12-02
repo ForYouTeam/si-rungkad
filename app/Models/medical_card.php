@@ -26,8 +26,8 @@ class medical_card extends Model
         ->select(
             'medicalcard.id', 
             'medicalcard.no_rm', 
-            'model_a.nama',
-            'model_a.tgl_lahir',
+            'model_a.nama as nama_profile',
+            'model_a.tgl_lahir as tl',
             'medicalcard.barcode',
         );   
     }

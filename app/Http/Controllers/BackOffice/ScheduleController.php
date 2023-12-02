@@ -4,6 +4,7 @@ namespace App\Http\Controllers\BackOffice;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ScheduleRequest;
+use App\Interfaces\PolyInterfaces;
 use App\Interfaces\ScheduleInterfaces;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -12,10 +13,19 @@ use Illuminate\Http\Request;
 class ScheduleController extends Controller
 {
     private ScheduleInterfaces $scheduleRepo;
+    private PolyInterfaces $polyRepo;
 
-    public function __construct(ScheduleInterfaces $scheduleRepo)
+    public function __construct(ScheduleInterfaces $scheduleRepo, PolyInterfaces $polyRepo)
     {
         $this->scheduleRepo = $scheduleRepo;
+        $this->polyRepo = $polyRepo;
+    }
+
+    public function getView()
+    {
+        $data = $this->scheduleRepo->getAllPayload([]);
+        $polyid = $this->polyRepo->getAllPayload([]);
+        return view('pages.Schedule')->with(['data'=> $data['data'], 'polyid' => $polyid['data']]);
     }
 
     public function getAllData(): JsonResponse

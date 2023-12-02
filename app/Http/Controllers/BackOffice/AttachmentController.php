@@ -18,6 +18,12 @@ class AttachmentController extends Controller
         $this->attachmentRepo = $attachmentRepo;
     }
 
+    public function getView()
+    {
+        $data = $this->attachmentRepo->getAllPayload([]);
+        return view('pages.Attachment')->with('data', $data['data']);
+    }
+
     public function getAllData(): JsonResponse
     {
         $response = $this->attachmentRepo->getAllPayload([]);
