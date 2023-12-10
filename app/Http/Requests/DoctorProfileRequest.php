@@ -27,12 +27,12 @@ class DoctorProfileRequest extends FormRequest
     {
         return [
             'user_id'   => 'required',
-            'nama'      => 'required|min:2|max:50',
-            'alamat'    => 'required|min:2|max:50',
-            'no_hp'     => 'required',
+            'nama'      => 'required|min:3',
+            'alamat'    => 'required|min:10',
+            'no_hp'     => 'required|numeric',
             'jk'        => 'required',
-            'email'     => 'required',
-            'pekerjaan' => 'required|min:2|max:50',
+            'email'     => 'required|email',
+            'pekerjaan' => 'required',
             'status'    => 'required',
             'tgl_lahir' => 'required',
             'agama'     => 'required',

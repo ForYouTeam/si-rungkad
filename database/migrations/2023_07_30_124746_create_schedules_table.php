@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('schedule', function (Blueprint $table) {
             $table->id();
-            $table->integer('poly_id');
-            $table->integer('doctor_id');
+            $table->foreignId('user_id')->constrained('user');
+            $table->foreignId('poly_id')->constrained('poly')->onDelete('cascade');
+            $table->foreignId('dokter_id')->constrained('doctorprofile')->onDelete('cascade');
             $table->date('tgl');
-            $table->string('jam_praktek');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->timestamps();
         });
     }

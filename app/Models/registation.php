@@ -10,6 +10,7 @@ class registation extends Model
     use HasFactory;
     protected $table = 'registation';
     protected $fillable = [
+        'user_id',
         'no_registrasi',
         'medicalcard_id',
         'poly_id',

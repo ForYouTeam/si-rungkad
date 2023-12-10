@@ -10,10 +10,12 @@ class schedule extends Model
     use HasFactory;
     protected $table = 'schedule';
     protected $fillable = [
+        'user_id',
         'poly_id',
-        'doctor_id',
+        'dokter_id',
         'tgl',
-        'jam_praktek'
+        'start_date',
+        'end_date'
     ];
 
     public function poly(){
@@ -33,7 +35,8 @@ class schedule extends Model
             'model_a.nama as nama_poly',
             'model_b.nama as nama_doctor',
             'schedule.tgl',
-            'schedule.jam_praktek',
+            'schedule.start_date',
+            'schedule.end_date',
         );   
     }
 }
