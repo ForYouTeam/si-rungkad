@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('visithistory', function (Blueprint $table) {
             $table->id();
-            $table->integer('profile_id');
-            $table->integer('registation_id');
+            $table->foreignId('profile_id')->constrained('profile');
+            $table->foreignId('regis_id')->constrained('registation');
             $table->date('tgl_kunjungan');
             $table->string('waktu_kunjungan');
             $table->string('keterangan');

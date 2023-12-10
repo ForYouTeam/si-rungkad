@@ -20,7 +20,12 @@ class ProfileController extends Controller
     public function getView()
     {
         $data = $this->profileRepo->getAllPayload([]);
-        return view('pages.Profile')->with('data', $data['data']);
+        return view('pages.pasien.index')->with('data', $data['data']);
+    }
+
+    public function addView()
+    {
+        return view('pages.pasien.add');
     }
 
     public function getAllData(): JsonResponse
@@ -43,7 +48,7 @@ class ProfileController extends Controller
 
         $date = Carbon::now();
         $payload = array(
-            'user_id'    => $payload->user_id ,
+            'user_id'    => $payload->user_id,
             'nama'       => $payload->nama,
             'alamat'     => $payload->alamat,
             'no_hp'      => $payload->no_hp,

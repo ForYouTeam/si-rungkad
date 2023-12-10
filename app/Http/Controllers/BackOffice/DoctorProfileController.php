@@ -21,7 +21,12 @@ class DoctorProfileController extends Controller
     public function getView()
     {
         $data = $this->doctorprofileRepo->getAllPayload([]);
-        return view('pages.DoctorProfile')->with('data', $data['data']);
+        return view('pages.dokter.index')->with('data', $data['data']);
+    }
+
+    public function addView()
+    {
+        return view('pages.dokter.add');
     }
 
     public function getAllData(): JsonResponse

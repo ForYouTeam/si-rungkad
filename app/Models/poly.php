@@ -10,6 +10,7 @@ class poly extends Model
     use HasFactory;
     protected $table = 'poly';
     protected $fillable = [
+        'user_id',
         'nama',
         'ruangan',
         'jam_praktek'

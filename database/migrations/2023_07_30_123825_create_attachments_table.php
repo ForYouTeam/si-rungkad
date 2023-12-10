@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('foto_ktp');
             $table->string('foto_kartu_berobat');
+            $table->foreignId('user_id')->constrained('user');
             $table->timestamps();
         });
     }

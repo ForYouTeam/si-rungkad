@@ -10,6 +10,7 @@ class medical_card extends Model
     use HasFactory;
     protected $table = 'medicalcard';
     protected $fillable = [
+        'user_id',
         'no_rm',
         'profile_id',
         'barcode'

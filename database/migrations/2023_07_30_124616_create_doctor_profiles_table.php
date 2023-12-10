@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('doctorprofile', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->foreignId('user_id')->constrained('user');
             $table->string('nama');
             $table->string('alamat');
             $table->string('no_hp');
