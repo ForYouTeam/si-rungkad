@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('registation', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('user');
             $table->string('no_registrasi');
-            $table->integer('medicalcard_id');
-            $table->integer('poly_id');
             $table->string('tgl_registrasi');
-            $table->integer('attachment_id');
             $table->string('qr_code');
+            $table->foreignId('medicalcard_id')->constrained('medicalcard')->onDelete('cascade');
+            $table->foreignId('poly_id')->constrained('poly')->onDelete('cascade');
+            $table->foreignId('attachment_id')->constrained('attachment')->onDelete('cascade');
             $table->timestamps();
         });
     }

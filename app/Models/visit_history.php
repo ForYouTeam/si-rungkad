@@ -11,7 +11,7 @@ class visit_history extends Model
     protected $table = 'visithistory';
     protected $fillable = [
         'profile_id',
-        'registation_id',
+        'regis_id',
         'tgl_kunjungan',
         'waktu_kunjungan',
         'keterangan'
