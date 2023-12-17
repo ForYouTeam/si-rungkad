@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('registation', function (Blueprint $table) {
-            $table->text('profile_id')->nullable()->after('user_id');
+            $table->foreignId('profile_id')->nullable()->constrained('profile')->after('user_id');
         });
     }
 

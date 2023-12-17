@@ -9,21 +9,17 @@ use App\Http\Controllers\BackOffice\RegistationController;
 use App\Http\Controllers\BackOffice\ScheduleController;
 use App\Http\Controllers\BackOffice\UserController;
 use App\Http\Controllers\BackOffice\VisitHistoryController;
-use App\Interfaces\PolyInterfaces;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Mobile\DoctorController;
+use App\Http\Controllers\Mobile\GetUserProfileController;
+use App\Http\Controllers\Mobile\HistoryVisitController;
+use App\Http\Controllers\Mobile\MedicalCardController as MobileMedicalCardController;
+use App\Http\Controllers\Mobile\OcrController;
+use App\Http\Controllers\Mobile\PoliController;
+use App\Http\Controllers\Mobile\ScheduleController as MobileScheduleController;
+
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
+use Laravel\Passport\RefreshTokenRepository;
+use Laravel\Passport\TokenRepository;
 
 Route::prefix('v1/poly')->controller(PolyController::class)->group(function() {
   Route::get    ('/'     , 'getAllData'  );
@@ -86,5 +82,33 @@ Route::prefix('v1/visithistory')->controller(VisitHistoryController::class)->gro
   Route::get    ('/{id}' , 'getDataById' );
   Route::post   ('/'     , 'upsertData'  );
   Route::delete ('/{id}' , 'deleteData'  );
+});
+
+Route::prefix('mobile')->group(function() {
+
+  Route::get ('doctor'       , [DoctorController            ::class, 'getList'      ]);
+  Route::get ('poly'         , [PoliController              ::class, 'getList'      ]);
+  Route::get ('schedule'     , [MobileScheduleController    ::class, 'getList'      ]);
+  Route::get ('history'      , [HistoryVisitController      ::class, 'getList'      ])->middleware('auth:api');
+  Route::get ('medical-card' , [MobileMedicalCardController ::class, 'getFirst'     ])->middleware('auth:api');
+  Route::get ('profile-user' , [GetUserProfileController    ::class, 'getFirst'     ])->middleware('auth:api');
+  Route::post('getImageText' , [OcrController               ::class, 'getImageText' ])->middleware('auth:api');
+
+  Route::get('logout'  , function() {
+    $tokenRepository = app(TokenRepository::class);
+    $getTokenId = $tokenRepository->forUser(auth()->user()->id);
+
+    $refreshTokenRepository = app(RefreshTokenRepository::class);
+
+    foreach ($getTokenId as $key => $value) {
+      // Revoke an access token...
+      $tokenRepository->revokeAccessToken($value['id']);
+      
+      // Revoke all of the token's refresh tokens...
+      $refreshTokenRepository->revokeRefreshTokensByAccessTokenId($value['id']);
+    }
+
+    return response()->json(['message' => 'Successfully logged out']);
+  })->middleware('auth:api');
 });
 
