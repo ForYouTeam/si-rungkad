@@ -39,4 +39,16 @@ class schedule extends Model
             'schedule.end_date',
         );   
     }
+
+    public function scopejoinListMobile($query)
+    {
+        return $query
+            ->leftJoin('doctorprofile as r1', 'schedule.dokter_id', 'r1.id')
+            ->leftJoin('poly as r2', 'schedule.poly_id', 'r1.id')
+            ->select(
+                'schedule.*',
+                'r1.nama as doctor_name',
+                'r2.nama as poly',
+            ); 
+    }
 }

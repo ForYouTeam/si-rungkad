@@ -25,7 +25,8 @@ class HistoryVisitController extends Controller
 
             $listData = new visit_history();
             $listData = $listData->query()
-                ->where('profile_id', $profile->id)
+                ->where('visithistory.profile_id', $profile->id)
+                ->joinList()
                 ->get();
         } catch (\Throwable $th) {
             return $this->error($th->getMessage(), 500);

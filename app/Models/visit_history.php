@@ -28,7 +28,7 @@ class visit_history extends Model
     public function scopejoinList($query)
     {
         return $query ->leftJoin('profile as model_a', 'visithistory.profile_id', '=', 'model_a.id')
-        ->leftJoin('registation as model_b', 'visithistory.registation_id', '=', 'model_b.id')
+        ->leftJoin('registation as model_b', 'visithistory.regis_id', '=', 'model_b.id')
         ->select(
             'visithistory.id', 
             'model_a.nama as nama_profile',

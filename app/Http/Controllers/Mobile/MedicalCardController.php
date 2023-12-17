@@ -26,7 +26,8 @@ class MedicalCardController extends Controller
 
             $listData = new medical_card();
             $listData = $listData->query()
-                ->where('profile_id', $profile->id)
+                ->where('medicalcard.profile_id', $profile->id)
+                ->joinList()
                 ->first();
                 
         } catch (\Throwable $th) {

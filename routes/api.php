@@ -86,13 +86,13 @@ Route::prefix('v1/visithistory')->controller(VisitHistoryController::class)->gro
 
 Route::prefix('mobile')->group(function() {
 
-  Route::get('doctor'       , [DoctorController            ::class, 'getList'      ]);
-  Route::get('poly'         , [PoliController              ::class, 'getList'      ]);
-  Route::get('schedule'     , [MobileScheduleController    ::class, 'getList'      ]);
-  Route::get('history'      , [HistoryVisitController      ::class, 'getList'      ]);
-  Route::get('medical-card' , [MobileMedicalCardController ::class, 'getFirst'     ]);
-  Route::get('profile-user' , [GetUserProfileController    ::class, 'getFirst'     ]);
-  Route::post('getImageText' , [OcrController               ::class, 'getImageText' ]);
+  Route::get ('doctor'       , [DoctorController            ::class, 'getList'      ]);
+  Route::get ('poly'         , [PoliController              ::class, 'getList'      ]);
+  Route::get ('schedule'     , [MobileScheduleController    ::class, 'getList'      ]);
+  Route::get ('history'      , [HistoryVisitController      ::class, 'getList'      ])->middleware('auth:api');
+  Route::get ('medical-card' , [MobileMedicalCardController ::class, 'getFirst'     ])->middleware('auth:api');
+  Route::get ('profile-user' , [GetUserProfileController    ::class, 'getFirst'     ])->middleware('auth:api');
+  Route::post('getImageText' , [OcrController               ::class, 'getImageText' ])->middleware('auth:api');
 
   Route::get('logout'  , function() {
     $tokenRepository = app(TokenRepository::class);
@@ -109,6 +109,6 @@ Route::prefix('mobile')->group(function() {
     }
 
     return response()->json(['message' => 'Successfully logged out']);
-  });
+  })->middleware('auth:api');
 });
 

@@ -17,9 +17,14 @@ class ScheduleController extends Controller
         try {
             $listData = new schedule();
             $listData = $listData->query()
+                ->joinListMobile()
                 ->when($request->doctor_id, function($query) use ($request) {
                     return $query
-                        ->where('doctor_id', $request->doctor_id);
+                        ->where('schedule.dokter_id', $request->doctor_id);
+                })
+                ->when($request->today, function($query) use ($request) {
+                    return $query
+                        ->where('schedule.tgl', $request->today);
                 })
                 ->get();
         } catch (\Throwable $th) {
