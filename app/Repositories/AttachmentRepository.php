@@ -3,13 +3,13 @@
 namespace App\Repositories;
 
 use App\Interfaces\AttachmentInterfaces;
-use App\Models\attachment;
+use App\Models\Attachment;
 use App\Models\poly;
 
 class AttachmentRepository implements AttachmentInterfaces
 { 
-  private attachment $attachmentModel;
-  public function __construct(attachment $attachmentModel)
+  private Attachment $attachmentModel;
+  public function __construct(Attachment $attachmentModel)
   {
     $this->attachmentModel = $attachmentModel;
   }

@@ -11,61 +11,44 @@
                     <form id="formData" onsubmit="return false">
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="hidden" name="user_id" id="user_id" value="1">
                                 <input type="hidden" name="id" id="dataId">
                                 <div class="mb-2">
                                     <label class="form-label">Nama</label>
                                     <input type="text" class="form-control" name="nama" id="nama"
-                                        placeholder="Nama" required>
+                                        placeholder="Input disini" required>
                                     <span class="text-danger error-msg small" id="nama-alert"></span>
                                 </div>
                                 <div class="mb-2">
-                                    <label class="form-label">No Handphone</label>
-                                    <input type="text" class="form-control" name="no_hp" id="no_hp"
-                                        placeholder="No Handphone" required>
+                                    <label class="form-label">NIK</label>
+                                    <input type="text" class="form-control" name="nik" id="nik"
+                                        placeholder="Input disini" required>
                                     <span class="text-danger error-msg small" id="no_hp-alert"></span>
                                 </div>
                                 <div class="mb-2">
-                                    <label class="form-label">Jenis Kelamin</label>
-                                    <select name="jk" id="jk" class="form-control">
-                                        <option value="" selected disabled>--pilih--</option>
-                                        <option value="Laki-laki">Laki-laki</option>
-                                        <option value="Perempuan">Perempuan</option>
-                                    </select>
-                                    <span class="text-danger error-msg small" id="jk-alert"></span>
-                                </div>
-                                <div class="mb-2">
                                     <div class="col-md-12">
-                                        <label class="form-label">Email</label>
-                                        <input type="text" class="form-control" name="email" id="email"
-                                            placeholder="Email" required>
+                                        <label class="form-label">Status Nikah</label>
+                                        <select name="status_nikah" id="status_nikah" class="form-select">
+                                            <option value="0">Belum</option>
+                                            <option value="1">Sudah</option>
+                                        </select>
                                         <span class="text-danger error-msg small" id="email-alert"></span>
                                     </div>
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label">Alamat</label>
-                                    <textarea name="alamat" id="alamat" cols="30" rows="6" class="form-control"></textarea>
+                                    <textarea name="alamat" id="alamat" cols="30" rows="6" class="form-control" placeholder="Input disini"></textarea>
                                     <span class="text-danger error-msg small" id="alamat-alert"></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-2">
-                                    <label class="form-label">Pekerjaan</label>
-                                    <input type="text" class="form-control" name="pekerjaan" id="pekerjaan"
-                                        placeholder="Pekerjaan" required>
+                                    <label class="form-label">Jenis Kelamin</label>
+                                    <select name="jk" id="jk" class="form-select">
+                                        <option value="" selected disabled>Pilih</option>
+                                        <option value="pria">Laki-Laki</option>
+                                        <option value="wanita">Perempuan</option>
+                                    </select>
                                     <span class="text-danger error-msg small" id="pekerjaan-alert"></span>
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">Status</label>
-                                    <input type="text" class="form-control" name="status" id="status"
-                                        placeholder="Status" required>
-                                    <span class="text-danger error-msg small" id="status-alert"></span>
-                                </div>
-                                <div class="mb-2">
-                                    <label class="form-label">Tanggal Lahir</label>
-                                    <input type="date" class="form-control" name="tgl_lahir" id="tgl_lahir"
-                                        placeholder="Tanggal Lahir" required>
-                                    <span class="text-danger error-msg small" id="tgl_lahir-alert"></span>
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label">Agama</label>
@@ -80,11 +63,23 @@
                                     </select>
                                     <span class="text-danger error-msg small" id="agama-alert"></span>
                                 </div>
+                                <div class="mb-2">
+                                    <label class="form-label">Pekerjaan</label>
+                                    <input type="text" class="form-control" name="pekerjaan" id="pekerjaan"
+                                        placeholder="Input dsini" required>
+                                    <span class="text-danger error-msg small" id="pekerjaan-alert"></span>
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">Kewarganegaraan</label>
+                                    <input type="text" class="form-control" name="kewarganegaraan" id="kewarganegaraan"
+                                        placeholder="Input disini" required>
+                                    <span class="text-danger error-msg small" id="status-alert"></span>
+                                </div>
                             </div>
                         </div>
                         <div class="d-flex flex-row-reverse mt-4" style="gap: 10px">
                             <button class="btn btn-outline-primary" id="btn-simpan">Simpan</button>
-                            <button class="btn btn-outline-danger">Batal</button>
+                            <button class="btn btn-outline-danger" id="cancel">Batal</button>
                         </div>
                     </form>
                 </div>
@@ -95,6 +90,7 @@
 @section('script')
     <script>
         let baseUrl
+        let cancelBtn = $('#cancel')
 
         $(document).ready(function() {
             baseUrl = "{{ config('app.url') }}"
@@ -107,6 +103,11 @@
             editData();
         });
 
+        $(cancelBtn).click(function () { 
+            window.location.href = "{{ route('profile') }}";
+            
+        });
+
         function editData() {
             var currentUrl = window.location.href;
             var match = currentUrl.match(/\/profile\/add\/(\d+)/);
@@ -117,13 +118,13 @@
                 $.get(`${baseUrl}/api/v1/profile/` + _id, function(res) {
                     $('#nama').val(res.data.nama);
                     $('#alamat').val(res.data.alamat);
-                    $('#no_hp').val(res.data.no_hp);
+                    $('#nik').val(res.data.nik);
                     $('#jk').val(res.data.jk);
                     $('#email').val(res.data.email);
                     $('#pekerjaan').val(res.data.pekerjaan);
-                    $('#status').val(res.data.status);
-                    $('#tgl_lahir').val(res.data.tgl_lahir);
+                    $('#status_nikah').val(res.data.status_nikah);
                     $('#agama').val(res.data.agama);
+                    $('#kewarganegaraan').val(res.data.kewarganegaraan);
                     $('#dataId').val(res.data.id);
                 })
             }
@@ -159,13 +160,10 @@
                             if (errorRes.length >= 1) {
                                 $('#nama-alert').html(errorRes.data.nama);
                                 $('#alamat-alert').html(errorRes.data.alamat);
-                                $('#no_hp-alert').html(errorRes.data.no_hp);
-                                $('#jk-alert').html(errorRes.data.jk);
-                                $('#email-alert').html(errorRes.data.email);
+                                $('#nik-alert').html(errorRes.data.nik);
+                                $('#status_nikah-alert').html(errorRes.data.status_nikah);
+                                $('#kewarganegaraan-alert').html(errorRes.data.kewarganegaraan);
                                 $('#pekerjaan-alert').html(errorRes.data.pekerjaan);
-                                $('#status-alert').html(errorRes.data.status);
-                                $('#tgl_lahir-alert').html(errorRes.data.tgl_lahir);
-                                $('#agama-alert').html(errorRes.data.agama);
                             }
                         } else {
                             let msg = 'Sedang pemeliharaan server'

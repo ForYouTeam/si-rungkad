@@ -5,6 +5,7 @@ namespace App\Http\Controllers\BackOffice;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DoctorProfileRequest;
 use App\Interfaces\DoctorProfileInterfaces;
+use App\Interfaces\PolyInterfaces;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,21 +13,29 @@ use Illuminate\Http\Request;
 class DoctorProfileController extends Controller
 {
     private DoctorProfileInterfaces $doctorprofileRepo;
+    private PolyInterfaces $poliRepo;
 
-    public function __construct(DoctorProfileInterfaces $doctorprofileRepo)
+    public function __construct(DoctorProfileInterfaces $doctorprofileRepo, PolyInterfaces $poliRepo)
     {
         $this->doctorprofileRepo = $doctorprofileRepo;
+        $this->poliRepo = $poliRepo;
     }
 
     public function getView()
     {
-        $data = $this->doctorprofileRepo->getAllPayload([]);
-        return view('pages.dokter.index')->with('data', $data['data']);
+        
+        $poly = $this->poliRepo->getAllPayload([]);
+        $dokter = $this->doctorprofileRepo->getAllPayload([]);
+        return view('pages.dokter.index')->with([
+            'dokter' => $dokter['data'],
+            'poly' => $poly['data']
+        ]);
     }
 
     public function addView()
     {
-        return view('pages.dokter.add');
+        $poly = $this->poliRepo->getAllPayload([]);
+        return view('pages.dokter.add')->with('poly', $poly['data']);
     }
 
     public function getAllData(): JsonResponse
@@ -49,17 +58,15 @@ class DoctorProfileController extends Controller
 
         $date = Carbon::now();
         $payload = array(
-            'user_id'    => $payload->user_id ,
-            'nama'       => $payload->nama,
-            'alamat'     => $payload->alamat,
-            'no_hp'      => $payload->no_hp,
-            'jk'         => $payload->jk,
-            'email'      => $payload->email,
-            'pekerjaan'  => $payload->pekerjaan,
-            'status'     => $payload->status,
-            'tgl_lahir'  => $payload->tgl_lahir,
-            'agama'      => $payload->agama,
-            'created_at' => $date,
+            'user_id'    => 1                 ,
+            'nama'       => $payload->nama    ,
+            'alamat'     => $payload->alamat  ,
+            'nip'        => $payload->nip     ,
+            'jk'         => $payload->jk      ,
+            'jurusan'    => $payload->jurusan ,
+            'poly_id'    => $payload->poly_id ,
+            'agama'      => $payload->agama   ,
+            'created_at' => $date             ,
         );
 
         if ($idPayload) {

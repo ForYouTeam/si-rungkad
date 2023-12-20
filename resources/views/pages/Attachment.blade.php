@@ -15,9 +15,9 @@
                       <thead>
                           <tr>
                               <th scope="col">No</th>
-                              <th scope="col">Pasien</th>
-                              <th scope="col">Foto KTP</th>
-                              <th scope="col">Foto Kartu Berobat</th>
+                              <th scope="col">Nama</th>
+                              <th scope="col">Foto</th>
+                              <th scope="col">Ocr</th>
                               <th scope="col">Action</th>
                           </tr>
                       </thead>
@@ -29,8 +29,8 @@
                               <tr>
                                   <td style="width: 10%; vertical-align: middle"><b>{{ $no++ }}</b></td>
                                   <td style="width: 10%; vertical-align: middle">{{ $item->profile['nama'] }}</td>
-                                  <td style="width: 10%"><img style="width: 35%" src="{{asset('storage/image/'.$item->foto_ktp)}}" alt=""></td>
-                                  <td style="width: 10%"><img style="width: 35%" src="{{asset('storage/image/'.$item->foto_kartu_berobat)}}" alt=""></td>
+                                  <td style="width: 10%; vertical-align: middle">{{ $item['path'] }}</td>
+                                  <td style="width: 10%; vertical-align: middle">{{ $item['to_ocr'] }}</td>
                                   <td style="width: 10%; vertical-align: middle">
                                       <button class="editItem btn btn-info btn-sm" data-id="{{ $item->id }}">
                                           Edit
@@ -65,27 +65,27 @@
                               <div class="col-md-12 mb-2">
                                   <label class="form-label">Pasien</label>
                                   <select name="profile_id" id="profile_id" class="form-select">
-                                    <option value="">-- Pilih --</option>
-                                    @foreach ($pasien as $ps)
-                                        <option value="{{$ps->id}}">{{$ps->nama}}</option>
-                                    @endforeach
+                                      <option value="">-- Pilih --</option>
+                                      @foreach ($pasien as $ps)
+                                          <option value="{{ $ps->id }}">{{ $ps->nama }}</option>
+                                      @endforeach
                                   </select>
                                   <span class="text-danger error-msg small" id="profile-alert"></span>
                               </div>
                               <div class="col-md-12 mb-2">
-                                  <label class="form-label">Foto KTP</label>
-                                  <input type="file" class="form-control" name="foto_ktp" id="foto_ktp"
+                                  <label class="form-label">Nama</label>
+                                  <input type="text" class="form-control" name="name" id="name"
                                       placeholder="foto ktp" required>
-                                  <span class="text-danger error-msg small" id="foto_ktp-alert"></span>
+                                  <span class="text-danger error-msg small" id="path-alert"></span>
+                              </div>
+                              <span class="text-danger small" id="nama-alert"></span>
+                              <div class="col-md-12 mb-2">
+                                  <label class="form-label">Foto</label>
+                                  <input type="file" class="form-control" name="path" id="path"
+                                      placeholder="foto ktp" required>
+                                  <span class="text-danger error-msg small" id="path-alert"></span>
                               </div>
                               <img style="width: 50%" src="" alt="" id="imagePreview1">
-                              <div class="col-md-12 mt-2">
-                                  <label class="form-label">Foto Kartu Berobat</label>
-                                  <input type="file" class="form-control" name="foto_kartu_berobat"
-                                      id="foto_kartu_berobat" placeholder="foto kartu berobat" required>
-                                  <span class="text-danger error-msg small" id="foto_kartu_berobat-alert"></span>
-                                  <img style="width: 50%" src="" alt="" id="imagePreview2">
-                              </div>
                               <span class="text-danger small" id="nama-alert"></span>
                           </div>
                   </div>
@@ -114,12 +114,8 @@
               $('#table-data').DataTable();
           });
 
-          $("#foto_ktp").change(function() {
+          $("#path").change(function() {
               readURL1(this);
-          });
-
-          $("#foto_kartu_berobat").change(function() {
-              readURL2(this);
           });
 
           function readURL1(input) {
@@ -129,19 +125,6 @@
                   reader.onload = function(e) {
                       $("#imagePreview1").attr("src", e.target.result);
                       $("#imagePreview1").show();
-                  };
-
-                  reader.readAsDataURL(input.files[0]);
-              }
-          }
-
-          function readURL2(input) {
-              if (input.files && input.files[0]) {
-                  var reader = new FileReader();
-
-                  reader.onload = function(e) {
-                      $("#imagePreview2").attr("src", e.target.result);
-                      $("#imagePreview2").show();
                   };
 
                   reader.readAsDataURL(input.files[0]);
@@ -163,8 +146,8 @@
                   $('.modal-title').html("Formulir Edit Data");
                   $('#btn-simpan').val("edit-user");
                   $('#modal-data').modal('show');
-                  $('#foto_ktp').val(res.data.foto_ktp);
-                  $('#foto_kartu_berobat').val(res.data.foto_kartu_berobat);
+                  $('#name').val(res.data.name);
+                  $('#path').val(res.data.path);
                   $('#dataId').val(res.data.id);
               })
           });
@@ -208,7 +191,7 @@
                               let errorRes = data.errors;
                               if (errorRes.length >= 1) {
                                   $('#profile-alert').html(errorRes.data.profile_id);
-                                  $('#foto_ktp-alert').html(errorRes.data.foto_ktp);
+                                  $('#path-alert').html(errorRes.data.path);
                                   $('#foto_kartu_berobat-alert').html(errorRes.data.foto_kartu_berobat);
                               }
                           } else {

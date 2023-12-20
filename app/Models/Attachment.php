@@ -5,11 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Doctor extends Model
+class Attachment extends Model
 {
     use HasFactory;
-    protected $table = 'doctor';
+    protected $table = 'attachment';
     protected $fillable = [
-        'user_id', 'nip', 'nama', 'alamat', 'jk', 'agama', 'jurusan', 'poly_id'
+        'profile_id',
+        'nama',
+        'path',
+        'to_ocr'
     ];
 }
