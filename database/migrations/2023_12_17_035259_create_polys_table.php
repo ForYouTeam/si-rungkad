@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('registation', function (Blueprint $table) {
-            $table->foreignId('profile_id')->nullable()->constrained('profile')->after('user_id');
+        Schema::create('poly', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama' ) ;
+            $table->string('ruangan' ) ;
+            $table->string('jam_praktek')->comment('cth: 09:00-10:00');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('registation', function (Blueprint $table) {
-            $table->text('profile_id')->nullable();
-        });
+        Schema::dropIfExists('poly');
     }
 };

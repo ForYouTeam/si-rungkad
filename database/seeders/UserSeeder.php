@@ -16,11 +16,25 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
-            'nama'     => 'super-admin',
-            'email'    => 'oned@mail.com',
-            'password' => Hash::make('123456'),
-            'scope'    => 'user'
-        ]);
+        User::create(
+            [
+                'nama'     => 'super-admin',
+                'email'    => 'suadmin@mail.com',
+                'password' => Hash::make('123456'),
+                'scope'    => 'super-admin'
+            ], 
+            [
+                'nama'     => 'irwandi paputungan',
+                'email'    => 'oned@mail.com',
+                'password' => Hash::make('123456'),
+                'scope'    => 'pasien'
+            ],
+            [
+                'nama'     => 'musfira',
+                'email'    => 'musfira@mail.com',
+                'password' => Hash::make('123456'),
+                'scope'    => 'doctor'
+            ]
+        );
     }
 }

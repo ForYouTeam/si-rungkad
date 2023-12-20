@@ -13,8 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('attachment', function (Blueprint $table) {
-            $table->text('profile_id')->nullable()->after('user_id');
+        Schema::create('historie', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId ('visit_id' )->constrained('visit')->onDelete('cascade');
+            $table->text('ket');
+            $table->date('tgl');
+            $table->boolean('visit_sugest');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('attachment', function (Blueprint $table) {
-            $table->dropColumn('profile_id');
-        });
+        Schema::dropIfExists('historie');
     }
 };

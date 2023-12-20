@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('poly', function (Blueprint $table) {
+        Schema::create('visit', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('user');
-            $table->string('nama');
-            $table->string('ruangan');
-            $table->string('jam_praktek');
+            $table->foreignId ('profile_id' )->constrained('profile')->onDelete('no action');
+            $table->string('no_rm')->unique();
+            $table->string('no_registrasi')->unique();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('poly');
+        Schema::dropIfExists('visit');
     }
 };

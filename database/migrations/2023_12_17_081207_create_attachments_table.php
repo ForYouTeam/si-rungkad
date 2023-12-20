@@ -13,18 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('profile', function (Blueprint $table) {
+        Schema::create('attachment', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('user');
+            $table->foreignId ('profile_id' )->constrained('profile')->onDelete('no action');
             $table->string('nama');
-            $table->string('alamat');
-            $table->string('no_hp');
-            $table->string('jk');
-            $table->string('email');
-            $table->string('pekerjaan');
-            $table->string('status');
-            $table->date('tgl_lahir');
-            $table->string('agama');
+            $table->string('path');
+            $table->boolean('to_ocr');
             $table->timestamps();
         });
     }
@@ -36,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profile');
+        Schema::dropIfExists('attachment');
     }
 };

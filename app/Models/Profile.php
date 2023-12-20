@@ -5,14 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class poly extends Model
+class Profile extends Model
 {
     use HasFactory;
-    protected $table = 'poly';
+    protected $table = 'profile';
     protected $fillable = [
-        'user_id',
-        'nama',
-        'ruangan',
-        'jam_praktek'
+        'user_id', 'nama', 'no_rm', 'nik', 'alamat', 'status_nikah', 'pekerjaan', 'kewarganegaraan', 'verified'
     ];
 }

@@ -13,14 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('schedule', function (Blueprint $table) {
+        Schema::create('detail_schedule', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('user');
-            $table->foreignId('poly_id')->constrained('poly')->onDelete('cascade');
-            $table->foreignId('dokter_id')->constrained('doctorprofile')->onDelete('cascade');
-            $table->date('tgl');
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->foreignId ('schedule_id' )->constrained('schedule')->onDelete('cascade');
+            $table->foreignId ('poly_id' )->constrained('poly')->onDelete('cascade');
+            $table->time ('start_time' );
+            $table->time ('end_time' );
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schedule');
+        Schema::dropIfExists('detail_schedule');
     }
 };
