@@ -15,11 +15,7 @@
                     <thead>
                         <tr>
                             <th scope="col">No</th>
-                            <th scope="col">Nama Poly</th>
-                            <th scope="col">Nama Dokter</th>
                             <th scope="col">Hari</th>
-                            <th scope="col">Buka Praktek</th>
-                            <th scope="col">Tutup Praktek</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -30,11 +26,7 @@
                         @foreach ($data as $item)
                             <tr>
                                 <td style="width: 10%">{{ $no++ }}</td>
-                                <td style="width: 10%">{{ $item->nama_poly }}</td>
-                                <td style="width: 10%">{{ $item->nama_doctor }}</td>
-                                <td style="width: 10%">{{ $item['tgl'] }}</td>
-                                <td style="width: 10%">{{ $item['jam_praktek'] }}</td>
-                                <td></td>
+                                <td style="width: 10%">{{ $item->hari }}</td>
                                 <td style="width: 10%">
                                     <button class="editItem btn btn-info btn-sm" data-id="{{ $item->id }}">
                                         Edit
@@ -67,32 +59,9 @@
                         <div class="form-group">
                             <input type="hidden" name="id" id="dataId">
                             <div class="col-md-12">
-                                <label class="form-label">Nama Poly</label>
-                                <select name="nama_poly" id="nama_poly" class="form-control" required>
-                                    <option value="" selected disabled>--pilih--</option>
-                                    @foreach ($polyid as $d)
-                                        <option value="{{ $d->id }}">{{ $d->nama }}</option>
-                                    @endforeach
-                                </select>
+                                <label class="form-label">Hari</label>
+                                <input type="text" name="hari" id="hari" class="form-control">
                                 <span class="text-danger error-msg small" id="nama-alert"></span>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="form-label">Nama Dokter</label>
-                                <input type="text" class="form-control" name="nama_doctor" id="nama_doctor"
-                                    placeholder="Nama Docter" required>
-                                <span class="text-danger error-msg small" id="nama_doctor-alert"></span>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="form-label">Tanggal</label>
-                                <input type="date" class="form-control" name="tgl" id="tgl"
-                                    placeholder="Tanggal" required>
-                                <span class="text-danger error-msg small" id="tgl-alert"></span>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="form-label">Jam Praktek</label>
-                                <input type="time" class="form-control" name="jam_praktek" id="jam_praktek"
-                                    placeholder="Jam Praktek" required>
-                                <span class="text-danger error-msg small" id="jam_praktek-alert"></span>
                             </div>
                         </div>
                     </div>
@@ -128,7 +97,7 @@
             $('#id').val('');
             $('#formData').trigger("reset");
             $('#modal-data').modal('show');
-            $('#nama-alert').html('');
+            $('#hari-alert').html('');
         });
 
         $('body').on('click', '.editItem', function() {
@@ -138,9 +107,7 @@
                 $('.modal-title').html("Formulir Edit Data");
                 $('#btn-simpan').val("edit-user");
                 $('#modal-data').modal('show');
-                $('#nama_poly').val(res.data.nama_poly);
-                $('#nama_doctor').val(res.data.nama_doctor);
-                $('#jam_praktek').val(res.data.jam_praktek);
+                $('#hari').val(res.data.hari);
                 $('#dataId').val(res.data.id);
             })
         });
@@ -174,9 +141,7 @@
                             let data = result.responseJSON
                             let errorRes = data.errors;
                             if (errorRes.length >= 1) {
-                                $('#nama_poly-alert').html(errorRes.data.nama_poly);
-                                $('#nama_doctor-alert').html(errorRes.data.nama_doctor);
-                                $('#jam_praktek-alert').html(errorRes.data.jam_praktek);
+                                $('#nama_poharily-alert').html(errorRes.data.hari);
                             }
                         } else {
                             let msg = 'Sedang pemeliharaan server'

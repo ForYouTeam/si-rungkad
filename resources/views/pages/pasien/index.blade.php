@@ -17,9 +17,9 @@
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Nama</th>
+                                <th scope="col">No Rm</th>
+                                <th scope="col">NIK</th>
                                 <th scope="col">Jenis Kelamin</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Status</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -31,9 +31,9 @@
                                 <tr>
                                     <td style="width: 10%">{{ $no++ }}</td>
                                     <td style="width: 10%">{{ $item['nama'] }}</td>
+                                    <td style="width: 10%">{{ $item['no_rm'] }}</td>
+                                    <td style="width: 10%">{{ $item['nik'] }}</td>
                                     <td style="width: 10%">{{ $item['jk'] }}</td>
-                                    <td style="width: 10%">{{ $item['email'] }}</td>
-                                    <td style="width: 10%">{{ $item['status'] }}</td>
                                     <td style="width: 10%;">
                                         <button class="editItem btn btn-info btn-sm" data-id="{{ $item->id }}">
                                             <i class="fa fa-eye"></i>

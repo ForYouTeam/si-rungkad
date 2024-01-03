@@ -15,16 +15,16 @@ return new class extends Migration
     {
         Schema::create('profile', function (Blueprint $table) {
             $table->id();
-            $table->string ('no_rm' )->unique();
-            $table->string ('nik' );
-            $table->string ('nama' );
-            $table->string ('alamat' );
-            $table->string ('jk' );
-            $table->string ('agama' );
-            $table->boolean('status_nikah' );
-            $table->string ('pekerjaan' );
-            $table->string ('kewarganegaraan');
-            $table->boolean('verified' );
+            $table->string('no_rm')->unique();
+            $table->string('nik');
+            $table->string('nama');
+            $table->string('alamat');
+            $table->string('jk');
+            $table->string('agama');
+            $table->boolean('status_nikah');
+            $table->string('pekerjaan');
+            $table->string('kewarganegaraan');
+            $table->boolean('verified');
             $table->timestamps();
         });
     }

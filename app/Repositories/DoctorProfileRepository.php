@@ -3,13 +3,12 @@
 namespace App\Repositories;
 
 use App\Interfaces\DoctorProfileInterfaces;
-use App\Models\doctor_profile;
-use App\Models\profile;
+use App\Models\Doctor;
 
 class DoctorProfileRepository implements DoctorProfileInterfaces
 { 
-    private doctor_profile $doctorprofileModel;
-    public function __construct(doctor_profile $doctorprofileModel)
+    private Doctor $doctorprofileModel;
+    public function __construct(Doctor $doctorprofileModel)
     {
       $this->doctorprofileModel = $doctorprofileModel;
     }

@@ -14,9 +14,9 @@
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Nama</th>>
-                            <th scope="col">No Handphone</th>
+                            <th scope="col">NIP</th>
+                            <th scope="col">Ahli</th>
                             <th scope="col">Jenis Kelamin</th>
-                            <th scope="col">Email</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -24,13 +24,13 @@
                         @php
                             $no = 1;
                         @endphp
-                        @foreach ($data as $item)
+                        @foreach ($dokter as $item)
                             <tr>
                                 <td style="width: 10%">{{ $no++ }}</td>
                                 <td style="width: 10%">{{ $item['nama'] }}</td>
-                                <td style="width: 10%">{{ $item['no_hp'] }}</td>
+                                <td style="width: 10%">{{ $item['nip'] }}</td>
+                                <td style="width: 10%">{{ $item['jurusan'] }}</td>
                                 <td style="width: 10%">{{ $item['jk'] }}</td>
-                                <td style="width: 10%">{{ $item['email'] }}</td>
                                 <td style="width: 10%;">
                                     <button class="editItem btn btn-info btn-sm" data-id="{{ $item->id }}">
                                         <i class="fa fa-eye"></i>

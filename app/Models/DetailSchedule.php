@@ -13,6 +13,16 @@ class DetailSchedule extends Model
         'schedule_id', 'poly_id', 'start_time', 'end_time'
     ];
 
+    public function schedule()
+    {
+        return $this->belongsTo(Schedule::class, 'schedule_id');
+    }
+
+    public function poly()
+    {
+        return $this->belongsTo(Poly::class, 'poly_id');
+    }
+
     public function scopejoinList($query) {
         return $query
             ->leftJoin('schedule as r1', 'r1.id', '=', 'detail_schedule.schedule_id')

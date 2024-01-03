@@ -44,21 +44,23 @@ class ProfileController extends Controller
 
     public function upsertData(ProfileRequest $payload)
     {
+        $no_rkm = "RKM-" . rand(10000000, 999999999);
         $idPayload = $payload->id | null;
 
         $date = Carbon::now();
         $payload = array(
-            'user_id'    => $payload->user_id,
-            'nama'       => $payload->nama,
-            'alamat'     => $payload->alamat,
-            'no_hp'      => $payload->no_hp,
-            'jk'         => $payload->jk,
-            'email'      => $payload->email,
-            'pekerjaan'  => $payload->pekerjaan,
-            'status'     => $payload->status,
-            'tgl_lahir'  => $payload->tgl_lahir,
-            'agama'      => $payload->agama,
-            'created_at' => $date,
+            'user_id'         => 1                        ,
+            'nama'            => $payload->nama           ,
+            'no_rm'           => $no_rkm                  ,
+            'nik'             => $payload->nik            ,
+            'alamat'          => $payload->alamat         ,
+            'jk'              => $payload->jk             ,
+            'agama'           => $payload->agama          ,
+            'status_nikah'    => $payload->status_nikah   ,
+            'pekerjaan'       => $payload->pekerjaan      ,
+            'kewarganegaraan' => $payload->kewarganegaraan,
+            'verified'        => false                    ,
+            'created_at'      => $date                    ,
         );
 
         if ($idPayload) {

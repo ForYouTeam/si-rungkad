@@ -26,16 +26,14 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id'   => 'required',
-            'nama'      => 'required|min:3',
-            'alamat'    => 'required|min:10',
-            'no_hp'     => 'required|numeric',
-            'jk'        => 'required',
-            'email'     => 'required|email',
-            'pekerjaan' => 'required',
-            'status'    => 'required',
-            'tgl_lahir' => 'required',
-            'agama'     => 'required',
+            'nama'            => 'required|min:3' ,
+            'alamat'          => 'required'       ,
+            'jk'              => 'required'       ,
+            'agama'           => 'required'       ,
+            'nik'             => 'required|numeric'       ,
+            'status_nikah'    => 'required'       ,
+            'pekerjaan'       => 'required'       ,
+            'kewarganegaraan' => 'required'       ,
         ];
     }
 

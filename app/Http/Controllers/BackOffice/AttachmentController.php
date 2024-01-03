@@ -8,8 +8,6 @@ use App\Interfaces\AttachmentInterfaces;
 use App\Interfaces\ProfileInterfaces;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AttachmentController extends Controller
 {
