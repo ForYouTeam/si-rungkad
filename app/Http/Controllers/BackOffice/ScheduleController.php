@@ -24,9 +24,7 @@ class ScheduleController extends Controller
     public function getView()
     {
         $data = $this->scheduleRepo->getAllPayload([]);
-        $poly = $this->polyRepo->getAllPayload([]);
-        dd($data);
-        return view('pages.Schedule')->with(['data'=> $data['data'], 'poly' => $poly['data']]);
+        return view('pages.Schedule')->with('data', $data['data']);
     }
 
     public function getAllData(): JsonResponse

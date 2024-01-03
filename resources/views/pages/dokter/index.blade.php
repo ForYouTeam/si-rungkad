@@ -14,8 +14,8 @@
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Nama</th>>
-                            <th scope="col">No Rm</th>
-                            <th scope="col">NIK</th>
+                            <th scope="col">NIP</th>
+                            <th scope="col">Ahli</th>
                             <th scope="col">Jenis Kelamin</th>
                             <th scope="col">Action</th>
                         </tr>
