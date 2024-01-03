@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('historie', function (Blueprint $table) {
+        Schema::create('histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId ('visit_id' )->constrained('visit')->onDelete('cascade');
             $table->text('ket');

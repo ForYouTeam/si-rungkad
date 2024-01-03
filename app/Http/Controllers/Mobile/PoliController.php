@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Models\poly;
+use App\Models\Poly;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class PoliController extends Controller
     public function getList(Request $request) {
 
         try {
-            $listData = poly::all();
+            $listData = Poly::all();
         } catch (\Throwable $th) {
             return $this->error($th->getMessage(), 500);
         }

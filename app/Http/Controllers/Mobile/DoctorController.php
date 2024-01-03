@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Mobile;
 
 use App\Http\Controllers\Controller;
+use App\Models\Doctor;
 use App\Models\doctor_profile;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class DoctorController extends Controller
 
     public function getList(Request $request) {
         try {
-            $listData = doctor_profile::all();
+            $listData = Doctor::all();
         } catch (\Throwable $th) {
             return $this->error($th->getMessage(), 500);
         }
