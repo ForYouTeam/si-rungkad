@@ -16,7 +16,7 @@ class Visit extends Model
         'no_registrasi'
     ];
 
-    public function schedule()
+    public function profile()
     {
         return $this->belongsTo(Profile::class, 'profile_id');
     }
