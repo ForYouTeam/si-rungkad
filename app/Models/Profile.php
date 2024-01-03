@@ -12,4 +12,9 @@ class Profile extends Model
     protected $fillable = [
         'user_id', 'nama', 'no_rm', 'nik', 'alamat', 'jk', 'agama', 'status_nikah', 'pekerjaan', 'kewarganegaraan', 'verified'
     ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

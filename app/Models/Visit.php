@@ -15,4 +15,9 @@ class Visit extends Model
         'no_rm',
         'no_registrasi'
     ];
+
+    public function schedule()
+    {
+        return $this->belongsTo(Profile::class, 'profile_id');
+    }
 }

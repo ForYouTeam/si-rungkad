@@ -15,4 +15,9 @@ class History extends Model
         'tgl',
         'visit_sugest',
     ];
+
+    public function visit()
+    {
+        return $this->belongsTo(Visit::class, 'visit_id');
+    }
 }

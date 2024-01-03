@@ -12,4 +12,14 @@ class Doctor extends Model
     protected $fillable = [
         'user_id', 'nip', 'nama', 'alamat', 'jk', 'agama', 'jurusan', 'poly_id'
     ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function poly()
+    {
+        return $this->belongsTo(Poly::class, 'poly_id');
+    }
 }

@@ -15,4 +15,9 @@ class Attachment extends Model
         'path',
         'to_ocr'
     ];
+
+    public function profile()
+    {
+        return $this->belongsTo(Profile::class, 'profile_id');
+    }
 }
