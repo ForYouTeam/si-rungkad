@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Models\medical_card;
-use App\Models\profile;
+use App\Models\Profile;
 use App\Traits\ApiResponse;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class MedicalCardController extends Controller
@@ -15,7 +15,7 @@ class MedicalCardController extends Controller
     public function getFirst(Request $request) {
 
         try {
-            $profile = new profile();
+            $profile = new Profile();
             $profile = $profile->query()
                 ->where('user_id', auth()->user()->id)
                 ->first();
@@ -24,16 +24,16 @@ class MedicalCardController extends Controller
                 return $this->error('profile not found', 404);
             }
 
-            $listData = new medical_card();
-            $listData = $listData->query()
-                ->where('medicalcard.profile_id', $profile->id)
-                ->joinList()
-                ->first();
+            $profile = [
+                'tanggal_daftar' => Carbon::parse($profile->created_at)->format('d-M-Y'),
+                'nama'           => $profile->nama,
+                'no_rm'          => $profile->no_rm
+            ];
                 
         } catch (\Throwable $th) {
             return $this->error($th->getMessage(), 500);
         }
 
-        return $this->success($listData);
+        return $this->success($profile);
     }
 }
