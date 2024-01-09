@@ -26,12 +26,9 @@ class RegistationRequest extends FormRequest
     public function rules()
     {
         return [
+            'profile_id'  => 'required',
+            'no_rm'  => 'required',
             'no_registrasi'  => 'required',
-            'medicalcard_id' => 'required',
-            'poly_id'        => 'required',
-            'tgl_registrasi' => 'required',
-            'attachment_id'  => 'required',
-            'qr_code'        => 'required',
         ];
     }
 

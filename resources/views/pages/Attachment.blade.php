@@ -17,7 +17,7 @@
                               <th scope="col">No</th>
                               <th scope="col">Nama</th>
                               <th scope="col">Foto</th>
-                              <th scope="col">Ocr</th>
+                              <th scope="col">Kartu</th>
                               <th scope="col">Action</th>
                           </tr>
                       </thead>
@@ -29,14 +29,14 @@
                               <tr>
                                   <td style="width: 10%; vertical-align: middle"><b>{{ $no++ }}</b></td>
                                   <td style="width: 10%; vertical-align: middle">{{ $item->profile['nama'] }}</td>
-                                  <td style="width: 10%; vertical-align: middle">{{ $item['path'] }}</td>
-                                  <td style="width: 10%; vertical-align: middle">{{ $item['to_ocr'] }}</td>
+                                  <td style="width: 10%; vertical-align: middle"><img src="{{asset('storage/image/'. $item['path'])}}" alt="kosong" style="width: 40%"></td>
+                                  <td style="width: 10%; vertical-align: middle">{{ $item['nama'] }}</td>
                                   <td style="width: 10%; vertical-align: middle">
                                       <button class="editItem btn btn-info btn-sm" data-id="{{ $item->id }}">
-                                          Edit
+                                          <i class="fa fa-eye"></i>
                                       </button>
-                                      <button class="btn btn-sm btn-danger btn-hapus" data-id="{{ $item->id }}">
-                                          Hapus
+                                      <button class="btn btn-danger btn-sm" data-id="{{ $item->id }}" id="btn-hapus">
+                                          <i class="fa fa-trash"></i>
                                       </button>
                                   </td>
                               </tr>
@@ -74,7 +74,7 @@
                               </div>
                               <div class="col-md-12 mb-2">
                                   <label class="form-label">Nama</label>
-                                  <input type="text" class="form-control" name="name" id="name"
+                                  <input type="text" class="form-control" name="nama" id="nama"
                                       placeholder="foto ktp" required>
                                   <span class="text-danger error-msg small" id="path-alert"></span>
                               </div>

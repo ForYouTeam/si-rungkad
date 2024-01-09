@@ -68,30 +68,30 @@
               <span class="hide-menu">Jadwal</span>
             </a>
           </li>
-          <li class="sidebar-item {{ Route::is('medicalcard') ? 'selected' : ''}}">
+          {{-- <li class="sidebar-item {{ Route::is('medicalcard') ? 'selected' : ''}}">
             <a class="sidebar-link" href="{{route('medicalcard')}}" aria-expanded="false">
               <span>
                 <i class="ti ti-cards"></i>
               </span>
               <span class="hide-menu">Kartu Berobat</span>
             </a>
-          </li>
-          <li class="sidebar-item {{ Route::is('registation') ? 'selected' : ''}}">
-            <a class="sidebar-link" href="{{route('registation')}}" aria-expanded="false">
+          </li> --}}
+          <li class="sidebar-item {{ Route::is('registrasi') ? 'selected' : ''}}">
+            <a class="sidebar-link" href="{{route('registrasi')}}" aria-expanded="false">
               <span>
                 <i class="ti ti-user-plus"></i>
               </span>
               <span class="hide-menu">Registrasi</span>
             </a>
           </li>
-          <li class="sidebar-item {{ Route::is('visithistory') ? 'selected' : ''}}">
+          {{-- <li class="sidebar-item {{ Route::is('visithistory') ? 'selected' : ''}}">
             <a class="sidebar-link" href="{{route('visithistory')}}" aria-expanded="false">
               <span>
                 <i class="ti ti-file"></i>
               </span>
               <span class="hide-menu">Riwayat Kunjungan</span>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-small-cap">
             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
             <span class="hide-menu">SETUP</span>

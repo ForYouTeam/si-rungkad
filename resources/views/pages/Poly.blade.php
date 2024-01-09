@@ -33,10 +33,10 @@
                                 <td style="width: 10%">{{ $item['jam_praktek'] }}</td>
                                 <td style="width: 10%">
                                     <button class="editItem btn btn-info btn-sm" data-id="{{ $item->id }}">
-                                        Edit
+                                        <i class="fa fa-eye"></i>
                                     </button>
                                     <button class="btn btn-danger btn-sm" data-id="{{ $item->id }}" id="btn-hapus">
-                                        Hapus
+                                        <i class="fa fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -180,8 +180,8 @@
                 text: "Data ini mungkin terhubung ke tabel yang lain!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
+                confirmButtonColor: '#BF3131',
+                cancelButtonColor: '#9BB8CD',
                 cancelButtonText: 'Batal',
                 confirmButtonText: 'Hapus'
             }).then((res) => {

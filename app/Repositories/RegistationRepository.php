@@ -5,11 +5,12 @@ namespace App\Repositories;
 use App\Interfaces\RegistationInterfaces;
 use App\Models\registation;
 use App\Models\schedule;
+use App\Models\Visit;
 
 class RegistationRepository implements RegistationInterfaces
 { 
-    private registation $registationModel;
-    public function __construct(registation $registationModel)
+    private Visit $registationModel;
+    public function __construct(Visit $registationModel)
     {
       $this->registationModel = $registationModel;
     }
@@ -17,11 +18,19 @@ class RegistationRepository implements RegistationInterfaces
     public function getAllPayload(array $params)
     {
       try {
-        $payloadList = $this->registationModel->joinList()->get();
+        $payloadList = $this->registationModel->getProfileByVisit()->get();
+        $data = $payloadList->map(function ($payload) {
+          return [
+            'id'            => $payload->id           ,
+            'nama'          => $payload->nama         ,
+            'no_rm'         => $payload->rekamedik    ,
+            'no_registrasi' => $payload->no_registrasi
+          ];
+        });
         $responseJson = array(
           'code'    => 200,
           'message' => 'success get data',
-          'data'    => $payloadList,
+          'data'    => $data,
           'meta'    => [
             'total' => $payloadList->count()
           ]

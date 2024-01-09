@@ -17,7 +17,7 @@ class VisitHistoryController extends Controller
     private ProfileInterfaces $profileRepo;
     private RegistationInterfaces $registationRepo;
 
-    public function __construct(VisitHistoryInterfaces $visithistoryRepo, ProfileInterfaces $profileRepo, RegistationInterfaces $registationRepo )
+    public function __construct(VisitHistoryInterfaces $visithistoryRepo, ProfileInterfaces $profileRepo, RegistationInterfaces $registationRepo)
     {
         $this->visithistoryRepo = $visithistoryRepo;
         $this->profileRepo = $profileRepo;
@@ -32,47 +32,21 @@ class VisitHistoryController extends Controller
         return view('pages.VisitHistory')->with(['data' => $data['data'], 'profileid' => $profileid['data'], 'registationid' => $registationid['data']]);;;
     }
 
+    public function getDetail($idPayload)
+    {
+        $response = $this->visithistoryRepo->getPayloadById($idPayload);
+        return view('pages.registrasi.show')->with('response', $response['data']);
+    }
+
     public function getAllData(): JsonResponse
     {
         $response = $this->visithistoryRepo->getAllPayload([]);
-
         return response()->json($response, $response['code']);
     }
 
     public function getDataById($idPayload)
     {
         $response = $this->visithistoryRepo->getPayloadById($idPayload);
-
-        return response()->json($response, $response['code']);
-    }
-
-    public function upsertData(VisitHistoryRequest $payload)
-    {
-        $idPayload = $payload->id | null;
-
-        $date = Carbon::now();
-        $payload = array(
-            'profile_id'      => $payload->profile_id ,
-            'registation_id'  => $payload->registation_id ,
-            'tgl_kunjungan'   => $payload->tgl_kunjungan,
-            'waktu_kunjungan' => $payload->waktu_kunjungan,
-            'keterangan'      => $payload->keterangan,
-            'created_at'      => $date,
-        );
-
-        if ($idPayload) {
-            $payload['updated_at'] = $date;
-        }
-
-        $response = $this->visithistoryRepo->upsertPayload($idPayload, $payload);
-
-        return response()->json($response, $response['code']);
-    }
-
-    public function deleteData($idPayload)
-    {
-        $response = $this->visithistoryRepo->deletePayload($idPayload);
-
         return response()->json($response, $response['code']);
     }
 }

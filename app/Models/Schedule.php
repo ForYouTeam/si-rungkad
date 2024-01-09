@@ -18,12 +18,19 @@ class Schedule extends Model
     {
         return DB::table('schedule')
         ->leftJoin('detail_schedule as ds', 'schedule.id', '=', 'ds.schedule_id')
+        ->leftJoin('poly as p', 'ds.poly_id', '=', 'p.id')
         ->select(
             'schedule.id',
             'schedule.hari',
             'ds.poly_id',
             'ds.start_time',
-            'ds.end_time'
+            'ds.end_time',
+            'p.nama as nama_poly'
         );
+    }
+
+    public function createData($payload)
+    {
+        return DetailSchedule::create($payload);
     }
 }

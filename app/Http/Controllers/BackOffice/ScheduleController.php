@@ -23,8 +23,12 @@ class ScheduleController extends Controller
 
     public function getView()
     {
+        $poly = $this->polyRepo->getAllPayload([]);
         $data = $this->scheduleRepo->getAllPayload([]);
-        return view('pages.Schedule')->with('data', $data['data']);
+        return view('pages.Schedule')->with([
+            'data' => $data['data'],
+            'poly' => $poly['data']
+        ]);
     }
 
     public function getAllData(): JsonResponse
@@ -41,24 +45,23 @@ class ScheduleController extends Controller
         return response()->json($response, $response['code']);
     }
 
-    public function upsertData(ScheduleRequest $payload)
+    public function upsertData(Request $request)
     {
-        $idPayload = $payload->id | null;
-
         $date = Carbon::now();
-        $payload = array(
-            'poly_id'       => $payload->poly_id ,
-            'doctor_id'     => $payload->doctor_id,
-            'tgl'           => $payload->tgl,
-            'jam_praktek'   => $payload->jam_praktek,
-            'created_at'    => $date          ,
+        $schedule = array(
+            'schedule_id' => $request->schedule_id ,
+            'poly_id'     => $request->poly_id     ,
+            'start_time'  => $request->start_time  ,
+            'end_time'    => $request->end_time    ,
+            'created_at'  => $date                 ,
         );
 
-        if ($idPayload) {
-            $payload['updated_at'] = $date;
-        }
 
-        $response = $this->scheduleRepo->upsertPayload($idPayload, $payload);
+        // $detailSchedule = [
+
+        // ];
+
+        $response = $this->scheduleRepo->upsertPayload($schedule);
 
         return response()->json($response, $response['code']);
     }
@@ -69,4 +72,5 @@ class ScheduleController extends Controller
 
         return response()->json($response, $response['code']);
     }
+
 }

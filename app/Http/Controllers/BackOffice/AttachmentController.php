@@ -47,23 +47,18 @@ class AttachmentController extends Controller
     {
         $idPayload = $payload->id | null;
 
-        $date = Carbon::now()->format('Y-m-d H-i');
-        $file1      = $payload->file('foto_ktp');
+        $date = Carbon::now()->format('H-i');
+        $file1      = $payload->file('path');
         $filename1  = $date .$file1->getClientOriginalName();
         $filePath1  = storage_path('app/public/image');
         $file1->move($filePath1, $filename1);
-
-        $file2      = $payload->file('foto_kartu_berobat');
-        $filename2  = $date .$file2->getClientOriginalName();
-        $filePath2  = storage_path('app/public/image');
-        $file2->move($filePath2, $filename2);
         
         $payload = array(
-            'foto_ktp'           => $filename1            ,
-            'foto_kartu_berobat' => $filename2            ,
-            'user_id'            => 1    ,
-            'profile_id'         => $payload->profile_id    ,
-            'created_at'         => $date                 ,
+            'path'       => $filename1           ,
+            'nama'       => $payload->nama       ,
+            'profile_id' => $payload->profile_id ,
+            'to_ocr'     => 1                    ,
+            'created_at' => $date                ,
         );
 
         if ($idPayload) {
