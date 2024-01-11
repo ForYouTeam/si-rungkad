@@ -40,11 +40,17 @@
                                         <label for="exampleInputEmail1" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="exampleInputEmail1"
                                             name="email" placeholder="Input here">
+                                        @error('email')
+                                            <span class="text-danger" style="font-size: 12px">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="mb-4">
                                         <label for="exampleInputPassword1" class="form-label">Password</label>
                                         <input type="password" class="form-control" id="exampleInputPassword1"
                                             name="password" placeholder="Input here">
+                                        @error('password')
+                                            <span class="text-danger" style="font-size: 12px">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign
                                         In</button>

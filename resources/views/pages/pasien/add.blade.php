@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="col-md-12 d-flex">
-                        <h4 class="col-sm-10">Tambah/Edit Data Pasien</h4>
+                        <h4 class="col-sm-10">Tambah / Edit Data Pasien</h4>
                     </div>
                     <hr>
                     <form id="formData" onsubmit="return false">
@@ -22,7 +22,7 @@
                                     <label class="form-label">NIK</label>
                                     <input type="text" class="form-control" name="nik" id="nik"
                                         placeholder="Input disini" required>
-                                    <span class="text-danger error-msg small" id="no_hp-alert"></span>
+                                    <span class="text-danger error-msg small" id="nik-alert"></span>
                                 </div>
                                 <div class="mb-2">
                                     <div class="col-md-12">
@@ -31,7 +31,7 @@
                                             <option value="0">Belum</option>
                                             <option value="1">Sudah</option>
                                         </select>
-                                        <span class="text-danger error-msg small" id="email-alert"></span>
+                                        <span class="text-danger error-msg small" id="status_nikah-alert"></span>
                                     </div>
                                 </div>
                                 <div class="mb-2">
@@ -48,7 +48,7 @@
                                         <option value="pria">Laki-Laki</option>
                                         <option value="wanita">Perempuan</option>
                                     </select>
-                                    <span class="text-danger error-msg small" id="pekerjaan-alert"></span>
+                                    <span class="text-danger error-msg small" id="jk-alert"></span>
                                 </div>
                                 <div class="mb-2">
                                     <label class="form-label">Agama</label>
@@ -73,7 +73,7 @@
                                     <label class="form-label">Kewarganegaraan</label>
                                     <input type="text" class="form-control" name="kewarganegaraan" id="kewarganegaraan"
                                         placeholder="Input disini" required>
-                                    <span class="text-danger error-msg small" id="status-alert"></span>
+                                    <span class="text-danger error-msg small" id="kewarganegaraan-alert"></span>
                                 </div>
                             </div>
                         </div>
@@ -162,6 +162,8 @@
                                 $('#alamat-alert').html(errorRes.data.alamat);
                                 $('#nik-alert').html(errorRes.data.nik);
                                 $('#status_nikah-alert').html(errorRes.data.status_nikah);
+                                $('#jk-alert').html(errorRes.data.jk);
+                                $('#agama-alert').html(errorRes.data.agama);
                                 $('#kewarganegaraan-alert').html(errorRes.data.kewarganegaraan);
                                 $('#pekerjaan-alert').html(errorRes.data.pekerjaan);
                             }

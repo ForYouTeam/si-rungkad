@@ -89,11 +89,13 @@ class UserRepository implements UserInterfaces
             'data'    => $whereData->update($payload)
           );
         } else {
+          $data = $this->userModel->create($payload);
           $responseJson = array(
             'code'    => 200,
             'message' => 'success create data',
-            'data'    => $this->userModel->create($payload)
+            'data'    => $data
           );
+          $data->assignRole('admin');
         }
 
       } catch (\Throwable $th) {

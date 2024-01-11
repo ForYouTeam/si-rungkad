@@ -47,9 +47,9 @@ class UserController extends Controller
         $hash = Hash::make($payload['password']);
         $payload = array(
             'nama'       => $payload->nama ,
-            'username'   => $payload->username,
+            'email'   => $payload->email,
             'password'   => $hash,
-            'scope'      => $payload->scope,
+            'scope'      => "admin",
             'created_at' => $date,
         );
 

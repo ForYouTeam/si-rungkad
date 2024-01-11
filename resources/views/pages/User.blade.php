@@ -71,7 +71,7 @@
                             <div class="col-md-12 mb-2">
                                 <label class="form-label">Email</label>
                                 <input type="email" class="form-control" name="email" id="email"
-                                    placeholder="Username" required>
+                                    placeholder="Input disini" required>
                                 <span class="text-danger error-msg small" id="username-alert"></span>
                             </div>
                             <div class="col-md-12 mb-2">
