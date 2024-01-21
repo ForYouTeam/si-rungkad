@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\BackOffice\AttachmentController;
 use App\Http\Controllers\BackOffice\DoctorProfileController;
-use App\Http\Controllers\BackOffice\MedicalCardController;
 use App\Http\Controllers\BackOffice\PolyController;
 use App\Http\Controllers\BackOffice\ProfileController;
 use App\Http\Controllers\BackOffice\RegistationController;
@@ -34,6 +33,4 @@ Route::get('/dokter'           , [DoctorProfileController ::class, 'getView' ])-
 Route::get('/dokter/add'       , [DoctorProfileController ::class, 'addView' ])->name('dokter-add'   );
 Route::get('/dokter/add/{id}'       , [DoctorProfileController ::class, 'addView' ])->name('dokter-edit'   );
 Route::get('/schedule'         , [ScheduleController      ::class, 'getView' ])->name('schedule'     );
-Route::get('/medicalcard'      , [MedicalCardController   ::class, 'getView' ])->name('medicalcard'  );
-Route::get('/registation'      , [RegistationController   ::class, 'getView' ])->name('registation'  );
 Route::get('/visithistory'     , [VisitHistoryController  ::class, 'getView' ])->name('visithistory' );

@@ -64,20 +64,6 @@ Route::prefix('v1/schedule')->controller(ScheduleController::class)->group(funct
   Route::delete ('/{id}' , 'deleteData'  );
 });
 
-Route::prefix('v1/medicalcard')->controller(MedicalCardController::class)->group(function() {
-  Route::get    ('/'     , 'getAllData'  );
-  Route::get    ('/{id}' , 'getDataById' );
-  Route::post   ('/'     , 'upsertData'  );
-  Route::delete ('/{id}' , 'deleteData'  );
-});
-
-Route::prefix('v1/registation')->controller(RegistationController::class)->group(function() {
-  Route::get    ('/'     , 'getAllData'  );
-  Route::get    ('/{id}' , 'getDataById' );
-  Route::post   ('/'     , 'upsertData'  );
-  Route::delete ('/{id}' , 'deleteData'  );
-});
-
 Route::prefix('v1/visithistory')->controller(VisitHistoryController::class)->group(function() {
   Route::get    ('/'     , 'getAllData'  );
   Route::get    ('/{id}' , 'getDataById' );
@@ -87,14 +73,14 @@ Route::prefix('v1/visithistory')->controller(VisitHistoryController::class)->gro
 
 Route::prefix('mobile')->group(function() {
 
-  Route::get ('doctor'             , [DoctorController             ::class, 'getList']);
-  Route::get ('poly'               , [PoliController               ::class, 'getList']);
-  Route::get ('schedule'           , [MobileScheduleController     ::class, 'getList']);
-  Route::get ('history'            , [HistoryVisitController       ::class, 'getList']) ->middleware('auth:api');
-  Route::get ('medical-card'       , [MobileMedicalCardController  ::class, 'getFirst'])->middleware('auth:api');
-  Route::get ('profile-user'       , [GetUserProfileController     ::class, 'getFirst'])->middleware('auth:api');
-  Route::post('getImageText'       , [OcrController                ::class, 'getImageText'])->middleware('auth:api');
-  Route::post('memberRegistration' , MemberRegistrationController ::class);
+  Route::get ('doctor'              , [DoctorController             ::class, 'getList'     ])                         ;
+  Route::get ('poly'                , [PoliController               ::class, 'getList'     ])                         ;
+  Route::get ('schedule'            , [MobileScheduleController     ::class, 'getList'     ])                         ;
+  Route::get ('history'             , [HistoryVisitController       ::class, 'getList'     ]) ->middleware('auth:api');
+  Route::get ('medical-card'        , [MobileMedicalCardController  ::class, 'getFirst'    ])->middleware('auth:api') ;
+  Route::get ('profile-user'        , [GetUserProfileController     ::class, 'getFirst'    ])->middleware('auth:api') ;
+  Route::post('getImageText'        , [OcrController                ::class, 'getImageText']);
+  Route::post('member-registration' , [MemberRegistrationController ::class, 'saveFile'    ])                         ;
 
   Route::get('logout'  , function() {
     $tokenRepository = app(TokenRepository::class);

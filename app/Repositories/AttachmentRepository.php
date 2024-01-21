@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Interfaces\AttachmentInterfaces;
 use App\Models\Attachment;
-use App\Models\poly;
 
 class AttachmentRepository implements AttachmentInterfaces
 { 

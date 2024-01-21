@@ -3,13 +3,12 @@
 namespace App\Repositories;
 
 use App\Interfaces\PolyInterfaces;
-use App\Models\LegendModel;
-use App\Models\poly;
+use App\Models\Poly;
 
 class PolyRepository implements PolyInterfaces
 { 
-  private poly $polyModel;
-  public function __construct(poly $polyModel)
+  private Poly $polyModel;
+  public function __construct(Poly $polyModel)
   {
     $this->polyModel = $polyModel;
   }

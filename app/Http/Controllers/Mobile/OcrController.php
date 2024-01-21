@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Models\Profile;
 use App\Traits\ApiResponse;
 use App\Traits\OcrApiService;
 use Illuminate\Http\Request;
@@ -20,11 +19,6 @@ class OcrController extends Controller
         if ($this->validation($request)->fails()) return $this->error($this->validation($request)->errors()->first(), 422, $this->validation($request)->errors());
 
         try {
-            $profile = new Profile();
-            $profile = $profile->query()
-                ->where('user_id', auth()->user()->id)
-                ->first();
-
             $ocrResponse = $this->ocrCall($request);
             $ocrResponse = $this->mapping($ocrResponse['data']['ParsedResults'][0]['TextOverlay']['Lines']);
 

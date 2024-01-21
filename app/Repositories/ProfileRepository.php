@@ -3,12 +3,12 @@
 namespace App\Repositories;
 
 use App\Interfaces\ProfileInterfaces;
-use App\Models\profile;
+use App\Models\Profile;
 
 class ProfileRepository implements ProfileInterfaces
 { 
-    private profile $profileModel;
-    public function __construct(profile $profileModel)
+    private Profile $profileModel;
+    public function __construct(Profile $profileModel)
     {
       $this->profileModel = $profileModel;
     }

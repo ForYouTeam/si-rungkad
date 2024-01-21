@@ -15,21 +15,18 @@ class VisitHistoryController extends Controller
 {
     private VisitHistoryInterfaces $visithistoryRepo;
     private ProfileInterfaces $profileRepo;
-    private RegistationInterfaces $registationRepo;
 
-    public function __construct(VisitHistoryInterfaces $visithistoryRepo, ProfileInterfaces $profileRepo, RegistationInterfaces $registationRepo )
+    public function __construct(VisitHistoryInterfaces $visithistoryRepo, ProfileInterfaces $profileRepo)
     {
         $this->visithistoryRepo = $visithistoryRepo;
         $this->profileRepo = $profileRepo;
-        $this->registationRepo = $registationRepo;
     }
 
     public function getView()
     {
         $data = $this->visithistoryRepo->getAllPayload([]);
         $profileid = $this->profileRepo->getAllPayload([]);
-        $registationid = $this->registationRepo->getAllPayload([]);
-        return view('pages.VisitHistory')->with(['data' => $data['data'], 'profileid' => $profileid['data'], 'registationid' => $registationid['data']]);;;
+        return view('pages.VisitHistory')->with(['data' => $data['data'], 'profileid' => $profileid['data']]);
     }
 
     public function getAllData(): JsonResponse

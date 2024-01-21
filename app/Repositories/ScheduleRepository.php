@@ -3,13 +3,12 @@
 namespace App\Repositories;
 
 use App\Interfaces\ScheduleInterfaces;
-use App\Models\profile;
-use App\Models\schedule;
+use App\Models\Schedule;
 
 class ScheduleRepository implements ScheduleInterfaces
 { 
-    private schedule $scheduleModel;
-    public function __construct(schedule $scheduleModel)
+    private Schedule $scheduleModel;
+    public function __construct(Schedule $scheduleModel)
     {
       $this->scheduleModel = $scheduleModel;
     }

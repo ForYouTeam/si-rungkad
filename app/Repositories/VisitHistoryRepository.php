@@ -3,12 +3,12 @@
 namespace App\Repositories;
 
 use App\Interfaces\VisitHistoryInterfaces;
-use App\Models\visit_history;
+use App\Models\Visit;
 
 class VisitHistoryRepository implements VisitHistoryInterfaces
 { 
-    private visit_history $visithistoryModel;
-    public function __construct(visit_history $visithistoryModel)
+    private Visit $visithistoryModel;
+    public function __construct(Visit $visithistoryModel)
     {
       $this->visithistoryModel = $visithistoryModel;
     }
