@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class History extends Model
 {
     use HasFactory;
-    protected $table = 'historie';
+    protected $table = 'histories';
     protected $fillable = [
         'visit_id',
         'ket',
@@ -26,5 +26,11 @@ class History extends Model
     {
         return DB::table('historie')
             ->select('historie.*');
+    }
+    
+    public function scopejoinList($query) 
+    {
+        return $query
+            ->leftJoin('visit as r1', 'r1.id', '=', 'histories.visit_id');
     }
 }

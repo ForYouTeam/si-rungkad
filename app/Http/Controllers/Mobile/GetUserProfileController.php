@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Models\profile;
+use App\Models\Profile;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class GetUserProfileController extends Controller
     public function getFirst(Request $request) {
 
         try {
-            $profile = new profile();
+            $profile = new Profile();
             $profile = $profile->query()
                 ->where('user_id', auth()->user()->id)
                 ->first();

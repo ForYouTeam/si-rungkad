@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Mobile;
 
 use App\Http\Controllers\Controller;
-use App\Models\profile;
+use App\Models\Profile;
 use App\Traits\ApiResponse;
 use App\Traits\OcrApiService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use stdClass;
 
 class OcrController extends Controller
 {
@@ -19,18 +20,26 @@ class OcrController extends Controller
         if ($this->validation($request)->fails()) return $this->error($this->validation($request)->errors()->first(), 422, $this->validation($request)->errors());
 
         try {
-            $profile = new profile();
+            $profile = new Profile();
             $profile = $profile->query()
                 ->where('user_id', auth()->user()->id)
                 ->first();
 
             $ocrResponse = $this->ocrCall($request);
             $ocrResponse = $this->mapping($ocrResponse['data']['ParsedResults'][0]['TextOverlay']['Lines']);
+
+            $person = new stdClass();
+            
+            foreach ($ocrResponse as $item) {
+                $field = str_replace(' ', '_', strtolower($item['field'])); // Mengonversi field menjadi lowercase dan mengganti spasi dengan underscore
+                $person->$field = ltrim($item['value'], ': '); // Menambahkan properti ke objek
+            }
+            
         } catch (\Throwable $th) {
             return $this->error($th->getMessage(), 500);
         }
 
-        return $this->success($ocrResponse, 'berhasil');
+        return $this->success($person, 'berhasil');
     }
 
     private function mapping(array $payload)
@@ -57,7 +66,7 @@ class OcrController extends Controller
     private function validation(Request $request)
     {
         return Validator::make($request->all(), [
-            'file' => 'required|image|mimes:jpeg,jpg|max:2048'
+            'file' => 'required|image|mimes:jpeg,jpg,png|max:2048'
         ]);
     }
 }
