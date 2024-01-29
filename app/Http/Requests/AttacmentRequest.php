@@ -26,10 +26,9 @@ class AttacmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'profile_id'  => 'required',
-            'user_id'  => 'required',
-            'foto_ktp'  => 'required',
-            'foto_kartu_berobat' => 'required',
+            'nama'               => 'required',
+            'path'               => 'required',
+            'profile_id'         => 'required',
         ];
     }
 

@@ -3,19 +3,30 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <div class="col-md-12 d-flex mb-4">
-                    <h4 class="col-sm-10">Data Jadwal</h4>
-                    <div class="col-sm-2 d-flex flex-row-reverse">
+                <div class="col-md-12 d-flex">
+                    <h4 class="col-sm-8">Data Jadwal</h4>
+                    <div class="col-sm-4 d-flex flex-row-reverse">
                         <button type="button" class="btn btn-primary" id="createData">
                             Tambah Data
                         </button>
                     </div>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <select name="jadwal" id="jadwal" class="form-select">
+                        <option value="x" selected disabled>-- Pilih hari --</option>
+                        @foreach ($data as $item)
+                            <option value="{{ $item->id }}">{{ $item->hari }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <table class="table table-striped table-hover" id="table-data">
                     <thead>
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">Hari</th>
+                            <th scope="col">Poly</th>
+                            <th scope="col">Jam Masuk</th>
+                            <th scope="col">Jam Keluar</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -27,12 +38,12 @@
                             <tr>
                                 <td style="width: 10%">{{ $no++ }}</td>
                                 <td style="width: 10%">{{ $item->hari }}</td>
+                                <td style="width: 10%">{{ $item->nama_poly }}</td>
+                                <td style="width: 10%">{{ $item->start_time }}</td>
+                                <td style="width: 10%">{{ $item->end_time }}</td>
                                 <td style="width: 10%">
-                                    <button class="editItem btn btn-info btn-sm" data-id="{{ $item->id }}">
-                                        Edit
-                                    </button>
                                     <button class="btn btn-danger btn-sm" data-id="{{ $item->id }}" id="btn-hapus">
-                                        Hapus
+                                        <i class="fa fa-trash"></i>
                                     </button>
                                 </td>
                             </tr>
@@ -57,10 +68,25 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="hidden" name="id" id="dataId">
-                            <div class="col-md-12">
-                                <label class="form-label">Hari</label>
-                                <input type="text" name="hari" id="hari" class="form-control">
+                            <input type="hidden" name="schedule_id" id="schedule_id">
+                            <div class="col-md-12 mb-2">
+                                <label class="form-label">Poly</label>
+                                <select name="poly_id" id="poly_id" class="form-select">
+                                    <option value="">Input disini</option>
+                                    @foreach ($poly as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="text-danger error-msg small" id="nama-alert"></span>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <label class="form-label">Jam Mulai</label>
+                                <input type="time" name="start_time" id="start_time" class="form-control">
+                                <span class="text-danger error-msg small" id="nama-alert"></span>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <label class="form-label">Jam Selesai</label>
+                                <input type="time" name="end_time" id="end_time" class="form-control">
                                 <span class="text-danger error-msg small" id="nama-alert"></span>
                             </div>
                         </div>
@@ -92,24 +118,28 @@
 
 
         $('#createData').click(function() {
-            $('.modal-title').html("Formulir Tambah Data");
-            $('#btn-simpan').val("create-Item");
-            $('#id').val('');
-            $('#formData').trigger("reset");
-            $('#modal-data').modal('show');
-            $('#hari-alert').html('');
+            var jdl = $('#jadwal').val()
+            if (jdl == null) {
+                Swal.fire({
+                    title: 'Gagal',
+                    text: 'Silahkan pilih hari dulu',
+                    icon: 'error',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Oke'
+                })
+            } else {
+                $('.modal-title').html("Formulir Tambah Data");
+                $('#btn-simpan').val("create-Item");
+                $('#id').val('');
+                $('#formData').trigger("reset");
+                $('#modal-data').modal('show');
+                $('#hari-alert').html('');
+            }
         });
 
-        $('body').on('click', '.editItem', function() {
-            console.log('ini console');
-            var _id = $(this).data('id');
-            $.get(`${baseUrl}/api/v1/schedule/` + _id, function(res) {
-                $('.modal-title').html("Formulir Edit Data");
-                $('#btn-simpan').val("edit-user");
-                $('#modal-data').modal('show');
-                $('#hari').val(res.data.hari);
-                $('#dataId').val(res.data.id);
-            })
+        $('#jadwal').change(function() {
+            var valSchedule = $(this).val()
+            $('#schedule_id').val(valSchedule);
         });
 
         $('#btn-simpan').click(function(e) {

@@ -7,6 +7,7 @@ use App\Http\Requests\RegistationRequest;
 use App\Interfaces\AttachmentInterfaces;
 use App\Interfaces\MedicalCardInterfaces;
 use App\Interfaces\PolyInterfaces;
+use App\Interfaces\ProfileInterfaces;
 use App\Interfaces\RegistationInterfaces;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -15,22 +16,19 @@ use Illuminate\Http\Request;
 class RegistationController extends Controller
 {
     private RegistationInterfaces $registationRepo;
-    private PolyInterfaces $polyRepo;
-    private AttachmentInterfaces $attachmentRepo;
+    private ProfileInterfaces $profileRepo;
 
-    public function __construct(RegistationInterfaces $registationRepo,  PolyInterfaces $polyRepo, AttachmentInterfaces $attachmentRepo)
+    public function __construct(RegistationInterfaces $registationRepo, ProfileInterfaces $profileRepo)
     {
         $this->registationRepo = $registationRepo;
-        $this->polyRepo = $polyRepo;
-        $this->attachmentRepo = $attachmentRepo;
+        $this->profileRepo = $profileRepo;
     }
 
     public function getView()
     {
+        $prfoile = $this->profileRepo->getAllPayload([]); 
         $data = $this->registationRepo->getAllPayload([]);
-        $polyid = $this->polyRepo->getAllPayload([]);
-        $lampiran = $this->attachmentRepo->getAllPayload([]);
-        return view('pages.Registation')->with(['data' => $data['data'], 'polyid' => $polyid['data'], 'lampiran' => $lampiran['data']]);
+        return view('pages.registrasi.index')->with(['data' => $data['data'], 'profile' => $prfoile['data']]);
     }
 
     public function getAllData(): JsonResponse
@@ -47,19 +45,17 @@ class RegistationController extends Controller
         return response()->json($response, $response['code']);
     }
 
-    public function upsertData(RegistationRequest $payload)
+    public function upsertData(Request $request)
     {
-        $idPayload = $payload->id | null;
-
+        $idPayload = $request->id | null;
         $date = Carbon::now();
+        $tgl = $request->tgl;
+        $no_regis = "REG-". rand(1000, 9999). "_" .$tgl;
+
         $payload = array(
-            'no_registrasi'     => $payload->no_registrasi ,
-            'medicalcard_id'    => $payload->medicalcard_id ,
-            'poly_id'           => $payload->poly_id,
-            'tgl_registrasi'    => $payload->tgl_registrasi,
-            'attachment_id'     => $payload->attachment_id,
-            'qr_code'           => $payload->qr_code,
-            'created_at'        => $date          ,
+            'profile_id'    => $request->profile_id,
+            'no_rm'         => $request->no_rm     ,
+            'no_registrasi' => $no_regis           ,
         );
 
         if ($idPayload) {
@@ -67,13 +63,6 @@ class RegistationController extends Controller
         }
 
         $response = $this->registationRepo->upsertPayload($idPayload, $payload);
-
-        return response()->json($response, $response['code']);
-    }
-
-    public function deleteData($idPayload)
-    {
-        $response = $this->registationRepo->deletePayload($idPayload);
 
         return response()->json($response, $response['code']);
     }

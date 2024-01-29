@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class History extends Model
 {
@@ -21,6 +22,12 @@ class History extends Model
         return $this->belongsTo(Visit::class, 'visit_id');
     }
 
+    public function getHistoryByVisit()
+    {
+        return DB::table('historie')
+            ->select('historie.*');
+    }
+    
     public function scopejoinList($query) 
     {
         return $query
