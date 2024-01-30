@@ -6,6 +6,7 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class ProfileSeeder extends Seeder
 {
@@ -16,7 +17,7 @@ class ProfileSeeder extends Seeder
      */
     public function run()
     {
-        Profile::create(
+        DB::table('profile')->insert(
             [
                 'user_id' => 2,
                 'no_rm' => '008921',

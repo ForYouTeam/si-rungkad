@@ -23,14 +23,8 @@ class MemberRegistrationController extends Controller
     public function saveFile(Request $request)
     {
         // Mendapatkan NIK dari request
-        $nik = $request->nik;
-        $file = $request->file('file');
 
         if ($this->validation($request)->fails()) return $this->error('Permintaan data tidak dapat diproses', 422, $this->validation($request)->errors());
-
-        if (!$file) {
-            return $this->error('File not exist', 422);
-        }
 
         try {
             DB::beginTransaction();
@@ -59,29 +53,14 @@ class MemberRegistrationController extends Controller
                 'user_id'         => $userResult->id
             );
 
-            $profileResult = Profile::create($profile);
+            Profile::create($profile);
 
-            $this->saveFileFromForm($file, $nik, $profileResult);
         } catch (\Throwable $th) {
             DB::rollBack();
             return $this->error($th->getMessage(), 500);
         }
         DB::commit();
         return $this->success(null, "You are registered successfully");
-    }
-
-    private function saveFileFromForm($file, $nik, $profile)
-    {
-        $fileExtension  = $file->getClientOriginalExtension();
-        $filename       = $nik . '.' . $fileExtension;
-        $file->storeAs('public/file_attempt', $filename);
-
-        Attachment::create([
-            'profile_id' => $profile->id,
-            'nama'       => $profile->nama,
-            'path'       => 'public/file_attempt/' . $filename,
-            'to_ocr'     => true
-        ]);
     }
 
     private function createUser(array $request) {
@@ -104,10 +83,9 @@ class MemberRegistrationController extends Controller
     private function validation(Request $request)
     {
         return Validator::make($request->all(), [
-            'file'            => 'required|image|mimes:jpeg,jpg,png|max:2048',
             'email'           => 'required|email|unique:user,email',
             'password'        => 'required|confirmed|min:5|max:15',
-            'nik'             => 'required|min:14|max:18',
+            'nik'             => 'required|min:10|max:18',
             'nama'            => 'required|min:2|max:50',
             'alamat'          => 'required|min:5',
             'jk'              => 'required',

@@ -3,23 +3,24 @@
 namespace App\Traits;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
 
 trait OcrApiService {
 
     protected $ocrUrl = '';
     
-    public function ocrCall(Request $request) {
+    public function ocrCall(mixed $request, string $fileName) {
         try {
             $this->ocrUrl = config('ocr.url');
             
-            $response = Http::withHeaders([
+            $response = Http::timeout(120)->withHeaders([
                 'apiKey'    => config('ocr.apikey')
             ])
             ->attach(
                 'file',  // Nama field file
-                file_get_contents($request->file('file')->path()),  // Isi file
-                $request->file('file')->getClientOriginalName()  // Nama file yang akan ditampilkan di server
+                file_get_contents(public_path($request)),  // Isi file
+                $fileName // Nama file yang akan ditampilkan di server
             )->post($this->ocrUrl, [
                 'OCREngine' => config('ocr.OCREngine')
             ]);

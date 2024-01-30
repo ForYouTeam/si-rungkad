@@ -73,14 +73,14 @@ Route::prefix('v1/visithistory')->controller(VisitHistoryController::class)->gro
 
 Route::prefix('mobile')->group(function() {
 
-  Route::get ('doctor'              , [DoctorController             ::class, 'getList'     ])                         ;
-  Route::get ('poly'                , [PoliController               ::class, 'getList'     ])                         ;
-  Route::get ('schedule'            , [MobileScheduleController     ::class, 'getList'     ])                         ;
+  Route::get ('doctor'              , [DoctorController             ::class, 'getList'     ]);
+  Route::get ('poly'                , [PoliController               ::class, 'getList'     ]);
+  Route::get ('schedule'            , [MobileScheduleController     ::class, 'getList'     ]);
   Route::get ('history'             , [HistoryVisitController       ::class, 'getList'     ]) ->middleware('auth:api');
   Route::get ('medical-card'        , [MobileMedicalCardController  ::class, 'getFirst'    ])->middleware('auth:api') ;
   Route::get ('profile-user'        , [GetUserProfileController     ::class, 'getFirst'    ])->middleware('auth:api') ;
   Route::post('getImageText'        , [OcrController                ::class, 'getImageText']);
-  Route::post('member-registration' , [MemberRegistrationController ::class, 'saveFile'    ])                         ;
+  Route::post('member-registration' , [MemberRegistrationController ::class, 'saveFile'    ]);
 
   Route::get('logout'  , function() {
     $tokenRepository = app(TokenRepository::class);
