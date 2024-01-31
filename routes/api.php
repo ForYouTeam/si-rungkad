@@ -82,7 +82,7 @@ Route::prefix('mobile')->group(function() {
   Route::post('getImageText'        , [OcrController                ::class, 'getImageText' ])                         ;
   Route::post('member-registration' , [MemberRegistrationController ::class, 'saveFile'     ])                         ;
   Route::post('visiting'            , [VisitRegistrationController  ::class, 'register'     ])->middleware('auth:api') ;
-  Route::get('check-avaible'       , [VisitRegistrationController  ::class, 'avaible'      ])->middleware('auth:api') ;
+  Route::get ('check-avaible'       , [VisitRegistrationController  ::class, 'avaible'      ])->middleware('auth:api') ;
 
   Route::get('logout'  , function() {
     $tokenRepository = app(TokenRepository::class);
