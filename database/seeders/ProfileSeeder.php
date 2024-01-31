@@ -21,13 +21,13 @@ class ProfileSeeder extends Seeder
             [
                 'user_id' => 2,
                 'no_rm' => '008921',
-                'nik' => '7101121210990214',
-                'nama' => 'irwandi paputungan',
-                'alamat' => 'jl. asam 1',
-                'jk' => 'pria',
+                'nik' => '7101121210311233',
+                'nama' => 'Musfira',
+                'alamat' => 'lere',
+                'jk' => 'wanita',
                 'agama' => 'islam',
                 'status_nikah' => false,
-                'pekerjaan' => 'kurir',
+                'pekerjaan' => 'mahasiswa',
                 'kewarganegaraan' => 'indonesia',
                 'verified' => true
             ]

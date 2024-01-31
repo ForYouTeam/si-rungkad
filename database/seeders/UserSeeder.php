@@ -25,12 +25,6 @@ class UserSeeder extends Seeder
                 'scope'    => 'super-admin'
             ],
             [
-                'nama'     => 'irwandi paputungan',
-                'email'    => 'oned@mail.com',
-                'password' => Hash::make('123456'),
-                'scope'    => 'pasien'
-            ],
-            [
                 'nama'     => 'musfira',
                 'email'    => 'musfira@mail.com',
                 'password' => Hash::make('123456'),
