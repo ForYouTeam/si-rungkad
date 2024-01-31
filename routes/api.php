@@ -17,7 +17,7 @@ use App\Http\Controllers\Mobile\MemberRegistrationController;
 use App\Http\Controllers\Mobile\OcrController;
 use App\Http\Controllers\Mobile\PoliController;
 use App\Http\Controllers\Mobile\ScheduleController as MobileScheduleController;
-
+use App\Http\Controllers\Mobile\VisitRegistrationController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\RefreshTokenRepository;
 use Laravel\Passport\TokenRepository;
@@ -73,14 +73,16 @@ Route::prefix('v1/visithistory')->controller(VisitHistoryController::class)->gro
 
 Route::prefix('mobile')->group(function() {
 
-  Route::get ('doctor'              , [DoctorController             ::class, 'getList'     ]);
-  Route::get ('poly'                , [PoliController               ::class, 'getList'     ]);
-  Route::get ('schedule'            , [MobileScheduleController     ::class, 'getList'     ]);
-  Route::get ('history'             , [HistoryVisitController       ::class, 'getList'     ]) ->middleware('auth:api');
-  Route::get ('medical-card'        , [MobileMedicalCardController  ::class, 'getFirst'    ])->middleware('auth:api') ;
-  Route::get ('profile-user'        , [GetUserProfileController     ::class, 'getFirst'    ])->middleware('auth:api') ;
-  Route::post('getImageText'        , [OcrController                ::class, 'getImageText']);
-  Route::post('member-registration' , [MemberRegistrationController ::class, 'saveFile'    ]);
+  Route::get ('doctor'              , [DoctorController             ::class, 'getList'      ])                         ;
+  Route::get ('poly'                , [PoliController               ::class, 'getList'      ])                         ;
+  Route::get ('schedule'            , [MobileScheduleController     ::class, 'getList'      ])                         ;
+  Route::get ('history'             , [HistoryVisitController       ::class, 'getList'      ]) ->middleware('auth:api');
+  Route::get ('medical-card'        , [MobileMedicalCardController  ::class, 'getFirst'     ])->middleware('auth:api') ;
+  Route::get ('profile-user'        , [GetUserProfileController     ::class, 'getFirst'     ])->middleware('auth:api') ;
+  Route::post('getImageText'        , [OcrController                ::class, 'getImageText' ])                         ;
+  Route::post('member-registration' , [MemberRegistrationController ::class, 'saveFile'     ])                         ;
+  Route::post('visiting'            , [VisitRegistrationController  ::class, 'register'     ])->middleware('auth:api') ;
+  Route::get('check-avaible'       , [VisitRegistrationController  ::class, 'avaible'      ])->middleware('auth:api') ;
 
   Route::get('logout'  , function() {
     $tokenRepository = app(TokenRepository::class);

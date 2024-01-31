@@ -10,6 +10,7 @@ use App\Traits\ApiResponse;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class MemberRegistrationController extends Controller
@@ -32,7 +33,7 @@ class MemberRegistrationController extends Controller
                'nama'     => $request->nama,
                'email'    => $request->email,
                'scope'    => 'pasien',
-               'password' => $request->password 
+               'password' => Hash::make($request->password )
             );
 
             $userResult = $this->createUser($user);

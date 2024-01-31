@@ -13,7 +13,8 @@ class Visit extends Model
     protected $fillable = [
         'profile_id',
         'no_rm',
-        'no_registrasi'
+        'no_registrasi',
+        'poly_id'
     ];
 
     public function profile()

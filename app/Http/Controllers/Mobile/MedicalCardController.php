@@ -25,8 +25,9 @@ class MedicalCardController extends Controller
             }
 
             $profile = [
+                'id'             => $profile->id,
                 'tanggal_daftar' => Carbon::parse($profile->created_at)->format('d-M-Y'),
-                'nama'           => $profile->nama,
+                'nama_profile'   => $profile->nama,
                 'no_rm'          => $profile->no_rm
             ];
                 
